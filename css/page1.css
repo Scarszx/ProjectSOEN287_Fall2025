@@ -1,0 +1,16 @@
+table, th, td { 
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+div.SideBar{
+        text-indent:0.5in;
+        text-align:right;
+        }
+div.Head{
+        text-indent:0.5in;
+        text-align:center;
+        }
+div.Body{
+        text-indent:0.5in;
+        text-align:left;
+        }
