@@ -1,43 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <style>
-        .loginbox{
-            width: 320px;
-            height: 130px;
-            border: 1px solid #000;
-            padding: 20px;
-            text-align: center;
-            background-color: white;
-            position: absolute;
-            top: 40%;
-        }
-        body { 
-            background-color: lightblue;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
-    <script>
-    
-    </script>
+    <title>Login - Campus Resource Booking</title>
+    <link rel="stylesheet" href="../css/stylesLOGIN.css">
 </head>
-<body>
-    <div class="loginbox">
-        <form action="account.js" method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" placeholder="Enter username"><br><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="Enter password"><br><br>
-            <input type="submit" value="login">
-        </form>
-        <br>
-        <a href="create_account.html">Create Account</a><br><br>
+<body class="login-page">
+    <div class="background-overlay"></div>
+    <div class="container">
+        <div class="card login-box">
+            <h1>Login</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <div class="link-section">
+                <a href="create_account.html">Create Account</a>
+            </div>
+        </div>
     </div>
-
-        
+    <script src="login.js"></script>
+</body>
+</html>
