@@ -2,61 +2,58 @@
 <html lang="en">
 <html>
 <head>
-    <title>Create Account</title>
+    <title>Create Account - Campus Resource booking</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body { 
-            background-color: lightblue;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .registerbox{
-            border: 1px solid #000;
-            padding: 20px;
-            text-align: left;
-            background-color: white;
-            position: absolute;
-            top: 1in;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/stylesLOGIN.css">
+
     <script>
     function showAlert() {
             alert("Students who create a Resource Manager account without permission will receive a heavy penalty.");
         }
     </script>
 </head>
-<body>
-    <div class="registerbox">
-        <form action="create_account.js" method="post">
-            <h1>Create new Account</h1>
-            <label for="first_name">First Name:</label><br>
-            <input type="text" id="first_name" name="first_name" placeholder="Enter first name (No nickname)"><br><br>
-            <label for="last_name">Last Name:</label><br>
-            <input type="text" id="last_name" name="last_name" placeholder="Enter last name"><br><br>
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" placeholder="Enter email"><br><br>
-            <label for="status">You are a: </label><br>
-            <input type="radio" id="student" name="status" value="student">
-            <label for="student">Student</label><br>
-            <input type="radio" id="faculty" name="status" value="faculty">
-            <label for="faculty">Faculty</label><br>
-            <input type="radio" id="resource_manager" name="status" value="resource_manager" onclick="showAlert()">
-            <label for="resource_manager">Resource Manager</label><br><br>
-            <label for="id">ID Number:</label><br>
-            <input type="text" id="id" name="id" placeholder="Enter your ID number"><br><br>
-            <label for="new_username">Username:</label><br>
-            <input type="text" id="new_username" name="new_username" placeholder="Enter username"><br><br>
-            <label for="new_password">Password:</label><br>
-            <input type="password" id="new_password" name="new_password" placeholder="Enter password"><br><br>
-            <label for="new_password">Confirm Password:</label><br>
-            <input type="password" id="new_password" name="new_password" placeholder="Enter the password again"><br><br>
-            <input type="submit" value="Create Account"><br><br>
-            <a href="login_page.html">Back to Login</a><br><br>
-        </form>
-        <br>
-        
+<body class="register-page">
+    <div class="background-overlay"></div>
+    <div class="container">
+        <div class="card register-box">
+            <form action="create_account.js" method="post">
+                <h1>Create new Account</h1>
+                <div class="form-row">
+                    <div class="form-group">
+                    <label for="first_name">First Name:</label><br>
+                    <input type="text" id="first_name" name="first_name" placeholder="Enter first name (No nickname)"><br><br>
+                    </div>
+                    <div class="form-group">
+                    <label for="last_name">Last Name:</label><br>
+                    <input type="text" id="last_name" name="last_name" placeholder="Enter last name"><br><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" placeholder="Enter email"><br><br>
+                </div>
+                <label for="status">You are a: </label><br>
+                <input type="radio" id="student" name="status" value="student">
+                <label for="student">Student</label><br>
+                <input type="radio" id="faculty" name="status" value="faculty">
+                <label for="faculty">Faculty</label><br>
+                <input type="radio" id="resource_manager" name="status" value="resource_manager" onclick="showAlert()">
+                <label for="resource_manager">Resource Manager</label><br><br>
+                <label for="id">ID Number:</label><br>
+                <input type="text" id="id" name="id" placeholder="Enter your ID number"><br><br>
+                <label for="new_username">Username:</label><br>
+                <input type="text" id="new_username" name="new_username" placeholder="Enter username"><br><br>
+                <label for="new_password">Password:</label><br>
+                <input type="password" id="new_password" name="new_password" placeholder="Enter password"><br><br>
+                <label for="new_password">Confirm Password:</label><br>
+                <input type="password" id="new_password" name="new_password" placeholder="Enter the password again"><br><br>
+                <input type="submit" value="Create Account"><br><br>
+                <a href="login_page.html">Back to Login</a><br><br>
+            </form>
+            <br>
+        </div>
+    </div>   
 </body>
 
 </html>
