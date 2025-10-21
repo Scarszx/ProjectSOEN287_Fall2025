@@ -1,3 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('SGW_building_pic.png'); 
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    background-color: #fff; /* White background for content to stand out over body background */
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+#header {
+    background-color: #d8bfd8; /* Light purple */
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+.content-wrapper {
+    display: flex;
+    margin-top: 10px;
+}
+
+.post-footer {
+    font-size: 0.8em;
+    color: #666;
+    border-top: 1px solid #ccc;
+    padding-top: 5px;
+}
+
+#menu {
+    flex: 1;
+    padding: 10px;
+    background-color: #f0fff0;
+    border-left: 1px solid #ccc;
+}
+
+#menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+#menu a {
+    color: #228b22; /* Green links */
+    text-decoration: none;
+}
+#menu a:hover {
+    text-decoration: underline;
+}
+
+#footer {
+    background-color: #d8bfd8; /* Light purple */
+    padding: 10px;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+/*I still have some color modification and sizing to do*/
+div.container{
+        background-color: grey;
+}
 table, th, td { 
         border: 1px solid black;
         border-collapse: collapse;
@@ -5,21 +69,16 @@ table, th, td {
 div.SideBar{
         text-indent:0.5in;
         text-align:right;
+        background-color: blue
         }
-/* (your orginal format is wirid, I guess you might mean this format, if you need it just delete the comment sign) 
-div.SideBar{
-        text-indent:0in;
-        text-align:left;
-        position: absolute;
-        left:5.5in;
-        top: 3in;
-        }
-*/
+
 div.Head{
         text-indent:0.5in;
         text-align:center;
+        background-color: blueviolet;
         }
 div.Body{
         text-indent:0.5in;
         text-align:left;
+        background-color: white;
         }
