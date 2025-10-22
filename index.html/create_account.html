@@ -81,12 +81,21 @@
                 <div class="form-group">
                     <label for="new_username">Username:</label><br>
                     <input type="text" id="new_username" name="new_username" placeholder="Enter username"></div>
+
                 <div class="form-group">
-                    <label for="new_password">Password:</label><br>
-                    <input type="password" id="new_password" name="new_password" placeholder="Enter password"></div>
+                    <label for="new_password">Password:</label>
+                    <div class="input-box">
+                        <input type="password" class="password-field" id="password" name="new_password" placeholder="Enter password" required>
+                        <img src="../css/icons/eye-close.png" id="e2" class="eyeicon">
+                    </div>
+                </div>    
                 <div class="form-group">
-                    <label for="new_password">Confirm Password:</label><br>
-                    <input type="password" id="new_password" name="new_password" placeholder="Enter the password again"></div>
+                    <label for="new_password">Confirm Password:</label>
+                    <div class="input-box">
+                        <input type="password" class="password-field" id="password" name="new_password" placeholder="Enter the password again" required>
+                        <img src="../css/icons/eye-close.png" id="e3" class="eyeicon">
+                    </div>
+                </div>    
 
                 <button type="submit" class="btn btn-primary">Create Account</button>
 
@@ -94,9 +103,9 @@
             <div class="link-section">
                 <a href="login_page.html">Back to Login</a>
             </div>
-            <br>
         </div>
     </div>   
 </body>
+<script src="../js/password-show-hide.js"></script>
 
 </html>
