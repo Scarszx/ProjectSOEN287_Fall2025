@@ -1,3 +1,28 @@
+<script>
+    // Highlight current page link automatically
+    document.addEventListener("DOMContentLoaded", () => {
+        const navLinks = document.querySelectorAll("nav.primary a");
+        const currentPath = window.location.pathname.split("/").pop(); // e.g., 'login.html'
+
+        navLinks.forEach(link => {
+            const linkPath = link.getAttribute("href").split("/").pop();
+            if (linkPath === currentPath) {
+                link.classList.add("active");
+            }
+        });
+    });
+</script>
+
+<style>
+    /* Style for active link */
+    nav.primary a.active {
+        color: var(--text);
+        font-weight: 600;
+        background: rgba(3,102,214,0.1);
+        border-bottom: 2px solid var(--accent);
+    }
+</style>
+
 <header id="site-header" role="banner" aria-label="Main header">
     <style>
         :root{
@@ -42,19 +67,17 @@
     <div class="site-header-inner">
         <a class="brand" href="/" aria-label="Homepage">
             <img src="/assets/logo.svg" alt="" aria-hidden="true">
-            <div class="title">Campus Resource </div>
+            <div class="title">Campus Resource Booking </div>
         </a>
 
-        <button class="mobile-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">
-            ☰
-        </button>
-
         <nav id="primary-nav" class="primary" role="navigation" aria-label="Primary">
-            <a href="/about">About</a>
-            <a href="/projects">Projects</a>
-            <a href="/team">Team</a>
-            <a href="/contact">Contact</a>
+            <a href="about.html">About</a>
+            <a href="projects.html">Projects</a>
+            <a href="team.html">Team</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Login</a>
         </nav>
+
 
         <div class="spacer" aria-hidden="true"></div>
 
