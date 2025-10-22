@@ -83,6 +83,25 @@ body {
 .form-group {
     margin-bottom: 20px;
 }
+/* password box show/hdie */
+.input-box{
+    background: #fff;
+    display: flex;
+    align-items: center;
+}
+.input-box input{
+    width: 100%;
+    border: 0;
+    outline: 0;
+    padding: 10px 0;
+    font-size: 24px ;
+}
+.input-box img{
+    position: absolute;
+    top: 58%;
+    right: 10%;
+    cursor: pointer;
+}
 
 .form-row {
     display: grid;
