@@ -18,14 +18,14 @@
     --hover: rgba(0, 0, 0, 0.05);
 }
 
-body.dark-mode {
+/* body.dark-mode {
     --background: #1a1a1a;
     --card-bg: #2d2d2d;
     --text: #f0f0f0;
     --text-muted: #b0b0b0;
     --border: #444444;
     --hover: rgba(255, 255, 255, 0.1);
-}
+} */
 
 body {
     font-family: 'Inter', Arial, sans-serif;
@@ -117,20 +117,30 @@ body {
 .radio-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .radio-label {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     cursor: pointer;
     font-weight: normal;
+    background: var(--card-bg);
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: background 0.2s, border-color 0.2s;
 }
 
 .radio-label input[type="radio"] {
     width: auto;
     cursor: pointer;
+}
+
+.radio-label:hover {
+    background: var(--hover);
+    border-color: var(--primary);
 }
 
 .btn {
@@ -223,3 +233,25 @@ body {
         display: none;
     }
 }
+
+/*dialog css*/
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 10px;
+    padding: 25px 30px;
+    background: var(--card-bg);
+    color: var(--text);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+dialog::backdrop {
+    background: rgba(0,0,0,0.6);
+}
+

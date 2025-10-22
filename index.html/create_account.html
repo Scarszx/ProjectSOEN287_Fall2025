@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<html>
 <head>
     <title>Create Account - Campus Resource booking</title>
     <meta charset="UTF-8">
@@ -8,8 +7,18 @@
     <link rel="stylesheet" href="../css/stylesLOGIN.css">
 
     <script>
-    function showAlert() {
+        function showAlert() {
             alert("Students who create a Resource Manager account without permission will receive a heavy penalty.");
+        }
+
+        function showDialog() {
+            const dialog = document.getElementById("warningDialog");
+            if (dialog) dialog.showModal();
+        }
+
+        function closeDialog() {
+            const dialog = document.getElementById("warningDialog");
+            if (dialog) dialog.close();
         }
     </script>
 </head>
@@ -17,8 +26,9 @@
     <div class="background-overlay"></div>
     <div class="container">
         <div class="card register-box">
-            <form action="create_account.js" method="post">
-                <h1>Create new Account</h1>
+            <form id="registerForm" onsubmit="event.preventDefault();" method="post">
+                <h1>New Account Registration</h1>
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="first_name">First Name:</label><br>
@@ -33,21 +43,52 @@
                     <label for="email">Email:</label><br>
                     <input type="email" id="email" name="email" placeholder="Enter email"><br><br>
                 </div>
-                <label for="status">You are a: </label><br>
-                <input type="radio" id="student" name="status" value="student">
-                <label for="student">Student</label><br>
-                <input type="radio" id="faculty" name="status" value="faculty">
-                <label for="faculty">Faculty</label><br>
-                <input type="radio" id="resource_manager" name="status" value="resource_manager" onclick="showAlert()">
-                <label for="resource_manager">Resource Manager</label><br><br>
-                <label for="id">ID Number:</label><br>
-                <input type="text" id="id" name="id" placeholder="Enter your ID number"><br><br>
-                <label for="new_username">Username:</label><br>
-                <input type="text" id="new_username" name="new_username" placeholder="Enter username"><br><br>
-                <label for="new_password">Password:</label><br>
-                <input type="password" id="new_password" name="new_password" placeholder="Enter password"><br><br>
-                <label for="new_password">Confirm Password:</label><br>
-                <input type="password" id="new_password" name="new_password" placeholder="Enter the password again"><br><br>
+                <div class="form-group">
+                    <label for="status">You are a: </label><br>
+
+                    <div class="form-group">
+                        <label for="status">You are a: </label><br>
+
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" id="student" name="status" value="student" required>
+                                Student
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" id="faculty" name="status" value="faculty">
+                                Faculty
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" id="resource_manager" name="status" value="resource_manager"
+                                    onclick="showDialog()">
+                                Resource Manager
+                            </label>
+                        </div>
+                    </div>
+                    <dialog id="warningDialog">
+                        <h3>⚠️ Important Notice</h3>
+                        <p>
+                            Students who create a Resource Manager account without permission will receive a heavy penalty.
+                        </p>
+                        <div style="text-align: right; margin-top: 15px;">
+                            <button onclick="closeDialog()" class="btn btn-primary">OK</button>
+                        </div>
+                    </dialog>
+                </div>
+                <div class="form-group">
+                    <label for="id">ID Number:</label><br>
+                    <input type="text" id="id" name="id" placeholder="Enter your ID number"><br><br> </div>
+
+                <div class="form-group">
+                    <label for="new_username">Username:</label><br>
+                    <input type="text" id="new_username" name="new_username" placeholder="Enter username"><br><br></div>
+                <div class="form-group">
+                    <label for="new_password">Password:</label><br>
+                    <input type="password" id="new_password" name="new_password" placeholder="Enter password"><br><br></div>
+                <div class="form-group">
+                    <label for="new_password">Confirm Password:</label><br>
+                    <input type="password" id="new_password" name="new_password" placeholder="Enter the password again"><br><br></div>
+
                 <input type="submit" value="Create Account"><br><br>
                 <a href="login_page.html">Back to Login</a><br><br>
             </form>

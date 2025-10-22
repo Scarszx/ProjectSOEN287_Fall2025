@@ -1,0 +1,99 @@
+<header id="site-header" role="banner" aria-label="Main header">
+    <style>
+        :root{
+            --bg:#fff; --accent:#0366d6; --text:#222; --muted:#666;
+            --gap:16px; --max-width:1200px;
+        }
+        #site-header{background:var(--bg); border-bottom:1px solid #eee}
+        .site-header-inner{
+            max-width:var(--max-width); margin:0 auto; padding:12px var(--gap);
+            display:flex; align-items:center; gap:var(--gap); flex-wrap:wrap;
+        }
+        .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text)}
+        .brand img{height:40px; width:40px; object-fit:contain}
+        .brand .title{font-weight:600; font-size:1.05rem}
+        nav.primary{display:flex; gap:8px; align-items:center; margin-left:8px}
+        nav.primary a{padding:8px 10px; color:var(--muted); text-decoration:none; border-radius:6px}
+        nav.primary a:hover, nav.primary a:focus{color:var(--text); background:rgba(3,102,214,0.06)}
+        .spacer{flex:1}
+        .actions{display:flex; gap:8px; align-items:center}
+        .search{position:relative}
+        .search input{
+            height:36px; padding:6px 10px; border:1px solid #ddd; border-radius:6px;
+            outline:none; min-width:180px; transition:box-shadow .12s;
+        }
+        .search input:focus{box-shadow:0 0 0 3px rgba(3,102,214,0.08)}
+        .btn{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:6px;
+            background:var(--accent); color:#fff; text-decoration:none; border:none; cursor:pointer; font:bold 0.9rem/1 Arial,Helvetica,sans-serif}
+        .btn.secondary{background:transparent; color:var(--text); border:1px solid #e6e6e6}
+        /* responsive */
+        .mobile-toggle{display:none; background:transparent; border:0; font-size:1.25rem; cursor:pointer}
+        @media (max-width:800px){
+            nav.primary{display:none; width:100%}
+            .search input{min-width:120px}
+            .mobile-toggle{display:inline-block}
+            .site-header-inner{align-items:center}
+            nav.primary.open{display:flex; flex-direction:column; gap:6px; width:100%; padding:8px 0}
+        }
+        /* small accessible focus */
+        a:focus, button:focus, input:focus{outline:3px solid rgba(3,102,214,0.18); outline-offset:2px}
+    </style>
+
+    <div class="site-header-inner">
+        <a class="brand" href="/" aria-label="Homepage">
+            <img src="/assets/logo.svg" alt="" aria-hidden="true">
+            <div class="title">Campus Resource </div>
+        </a>
+
+        <button class="mobile-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">
+            ☰
+        </button>
+
+        <nav id="primary-nav" class="primary" role="navigation" aria-label="Primary">
+            <a href="/about">About</a>
+            <a href="/projects">Projects</a>
+            <a href="/team">Team</a>
+            <a href="/contact">Contact</a>
+        </nav>
+
+        <div class="spacer" aria-hidden="true"></div>
+
+        <div class="actions" role="group" aria-label="Header actions">
+            <form class="search" role="search" action="/search" method="get" aria-label="Site search">
+                <label for="header-search" class="visually-hidden">Search</label>
+                <input id="header-search" name="q" type="search" placeholder="Search..." aria-label="Search the site">
+            </form>
+
+            <a class="btn secondary" href="/help">Help</a>
+            <a class="btn" href="/contact">Contact us</a>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            const btn = document.querySelector('.mobile-toggle');
+            const nav = document.getElementById('primary-nav');
+            if(!btn || !nav) return;
+            btn.addEventListener('click', function(){
+                const open = nav.classList.toggle('open');
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
+            // Close mobile nav on outside click (small enhancement)
+            document.addEventListener('click', (e) => {
+                if(window.innerWidth > 800) return;
+                if(!nav.contains(e.target) && !btn.contains(e.target)) {
+                    nav.classList.remove('open');
+                    btn.setAttribute('aria-expanded','false');
+                }
+            });
+        })();
+    </script>
+
+    <!-- Utility: visually-hidden for screen-reader-only text -->
+    <style>
+        .visually-hidden{
+            position:absolute!important; height:1px; width:1px; overflow:hidden;
+            clip:rect(1px,1px,1px,1px); white-space:nowrap; clip-path:inset(50%);
+        }
+    </style>
+</header>
