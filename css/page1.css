@@ -36,23 +36,23 @@ body {
     padding-top: 5px;
 }
 
-#menu {
+#SideBar {
     flex: 1;
     padding: 10px;
-    background-color: #f0fff0;
+    background-color: #ebe1e1;
     border-left: 1px solid #ccc;
 }
 
-#menu ul {
+#SideBar ul {
     list-style: none;
     padding: 0;
 }
 
-#menu a {
-    color: #228b22; /* Green links */
+#SideBar a {
+    color: blue; /* blue links */
     text-decoration: none;
 }
-#menu a:hover {
+#SideBar a:hover {
     text-decoration: underline;
 }
 
@@ -63,27 +63,9 @@ body {
     font-size: 0.8em;
 }
 
-/*I still have some color modification and sizing to do*/
-div.container{
-        background-color: grey;
-}
+
 table, th, td { 
         border: 1px solid black;
         border-collapse: collapse;
         }
-div.SideBar{
-        text-indent:0.5in;
-        text-align:right;
-        background-color: blue
-        }
 
-div.Head{
-        text-indent:0.5in;
-        text-align:center;
-        background-color: blueviolet;
-        }
-div.Body{
-        text-indent:0.5in;
-        text-align:left;
-        background-color: white;
-        }
