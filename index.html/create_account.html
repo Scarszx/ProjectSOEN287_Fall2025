@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="../css/stylesLOGIN.css">
 
     <script>
-        function showAlert() {
-            alert("Students who create a Resource Manager account without permission will receive a heavy penalty.");
-        }
-
         function showDialog() {
             const dialog = document.getElementById("warningDialog");
             if (dialog) dialog.showModal();
@@ -26,6 +22,8 @@
     <div class="background-overlay"></div>
     <div class="container">
         <div class="card register-box">
+
+            <!--register form-->
             <form id="registerForm" onsubmit="event.preventDefault();" method="post">
                 <h1>New Account Registration</h1>
 
@@ -100,6 +98,7 @@
                 <button type="submit" class="btn btn-primary">Create Account</button>
 
             </form>
+            
             <div class="link-section">
                 <a href="login_page.html">Back to Login</a>
             </div>
