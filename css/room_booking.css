@@ -3,7 +3,9 @@
 /* Reuse global theme variables */
 body {
     font-family: 'Inter', Arial, sans-serif;
-    background-color: var(--background);
+    background-image: url('../css/SGW_building_pic.png');
+    background-size: cover;
+    background-position: center;
     color: var(--text);
     margin: 0;
     padding: 0;
