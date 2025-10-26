@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ROOM BOOK</title>
     <link rel="stylesheet" href="../css/room_booking.css">
+    <link rel="stylesheet" href="../css/stylesLOGIN.css">
+
 </head>
 <body>
     <div class="booking-container">
@@ -138,7 +140,7 @@
         </table>
         <form id="bookingForm">
             <div class="form-group">
-                <label for="date">Select Date(Year, Month, Day):</label><br>
+                <label for="date">Select Date(Year, Month, Day):</label>
                 <select id="year" name="year" required>
                     <option value="" disabled selected>Select a year</option>
                     <option value="2025">2025</option>
@@ -193,8 +195,8 @@
                     <option value="29">29</option>
                     <option value="30">30</option>
                     <option value="31">31</option>
-                </select><br>
-                <label for="time">Select Time:</label><br>
+                </select>
+                <label for="time">Select Time:</label>
                 <label for="start_time">From:</label>
                 <select id="start_time" name="start_time" required>
                     <option value="" disabled selected>Select a time</option>
@@ -224,9 +226,9 @@
                     <option value="17:00">17:00</option>
                     <option value="18:00">18:00</option>
                     <option value="19:00">19:00</option>
-                </select><br>
-                <label for="purpose">Purpose of Booking:</label><br>
-                <textarea id="purpose" name="purpose"></textarea><br><br>
+                </select>
+                <label for="purpose">Purpose of Booking:</label>
+                <textarea id="purpose" name="purpose"></textarea>
                 <button type="submit" class="btn btn-primary">Book Room</button>
             </div>
         </form>
