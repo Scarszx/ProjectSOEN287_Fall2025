@@ -1,0 +1,167 @@
+/*  SPECIALIZED EQUIPMENT PAGE STYLES */
+
+/* Reuse global theme variables */
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background-image: url('../css/SGW_building_pic.png');
+    background-size: cover;
+    background-position: center;
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+.booking-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.booking-container h1 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 24px;
+    font-size: 28px;
+}
+
+/* Search form */
+#Specialized_equipment_SelectionForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+#Specialized_equipment_SelectionForm input {
+    width: 6500px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    background: var(--card-bg);
+    color: var(--text);
+}
+
+#Specialized_equipment_SelectionForm input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.1);
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0 40px 0;
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+caption {
+    caption-side: top;
+    text-align: left;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+}
+
+th, td {
+    border: 1px solid var(--border);
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background-color: var(--primary);
+    color: white;
+}
+
+tr:nth-child(even) td {
+    background-color: var(--hover);
+}
+
+/* Booking Form */
+#bookingForm {
+    margin-top: 20px;
+}
+
+#bookingForm .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#bookingForm label {
+    font-weight: 500;
+    color: var(--text);
+}
+
+#bookingForm select,
+#bookingForm textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    background: var(--card-bg);
+    color: var(--text);
+}
+
+#bookingForm select:focus,
+#bookingForm textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.1);
+}
+
+#bookingForm textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Buttons (reuse global button style) */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .booking-container {
+        padding: 20px;
+    }
+
+    #Specialized_equipment_SelectionForm {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #Specialized_equipment_SelectionForm input {
+        width: 100%;
+    }
+
+    table, th, td {
+        font-size: 12px;
+    }
+}
