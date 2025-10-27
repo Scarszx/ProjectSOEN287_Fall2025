@@ -84,7 +84,7 @@
   <header class="main-header">
     <div class="left-section">
       <button class="menu-btn">
-        <i class="material-icons">menu</i>
+        <i id="menuBtn" class="material-icons">menu</i>
       </button>
       <h1>Campus Resource Booking &amp; Management System</h1>
     </div>
@@ -101,7 +101,7 @@
         <i class="material-icons">menu_book</i>
       </button>
     </div>
-  </header>
+  </header> 
 
   <script>
     // dummy user data 
@@ -112,4 +112,19 @@
 
     document.getElementById('username').textContent = user.name;
     document.getElementById('userRole').textContent = user.role;
+
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('show');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+    });
+
   </script>
