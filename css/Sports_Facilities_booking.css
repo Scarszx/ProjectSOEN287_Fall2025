@@ -28,7 +28,7 @@ body {
 }
 
 /* Search form */
-#sport_facilities_SelectionForm {
+#Sports_Facilities_SelectionForm {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,7 +36,7 @@ body {
     margin-bottom: 30px;
 }
 
-#sport_facilities_SelectionForm input {
+#Sports_Facilities_SelectionForm input {
     width: 6500px;
     padding: 12px;
     border: 1px solid var(--border);
@@ -46,7 +46,7 @@ body {
     color: var(--text);
 }
 
-#sport_facilities_SelectionForm input:focus {
+#Sports_Facilities_SelectionForm input:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.1);
@@ -189,12 +189,12 @@ tr:nth-child(even) td {
         padding: 20px;
     }
 
-    #sport_facilities_SelectionForm {
+    #Sports_Facilities_SelectionForm {
         flex-direction: column;
         align-items: stretch;
     }
 
-    #sport_facilities_SelectionForm input {
+    #Sports_Facilities_SelectionForm input {
         width: 100%;
     }
 
@@ -202,4 +202,5 @@ tr:nth-child(even) td {
         font-size: 12px;
     }
 }
+
 
