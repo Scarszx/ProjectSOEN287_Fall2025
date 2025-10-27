@@ -1,0 +1,241 @@
+/* RESOURCE MANGEMENT PAGE STYLES */
+
+/* Reuse global theme variables */
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background-image: url('../css/SGW_building_pic.png');
+    background-size: cover;
+    background-position: center;
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+.resource_management-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.resource_management-container h1 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 24px;
+    font-size: 28px;
+}
+
+/* Search form */
+#resource_management_SelectionForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+#resource_management_SelectionForm input {
+    width: 6500px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    background: var(--card-bg);
+    color: var(--text);
+}
+
+#resource_management_SelectionForm input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.1);
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0 40px 0;
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+caption {
+    caption-side: top;
+    text-align: left;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+}
+
+th, td {
+    border: 1px solid var(--border);
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background-color: var(--primary);
+    color: white;
+}
+
+tr:nth-child(even) td {
+    background-color: var(--hover);
+}
+
+/* resource_management_Form */
+#resource_management_Form {
+    margin-top: 20px;
+}
+
+#resource_management_Form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#resource_management_Form label {
+    font-weight: 500;
+    color: var(--text);
+}
+
+#resource_management_Form select,
+#resource_management_Form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    background: var(--card-bg);
+    color: var(--text);
+}
+
+#resource_management_Form select:focus,
+#resource_management_Form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.1);
+}
+
+#resource_management_Form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Checkbox / inline control helpers*/
+
+#resource_management_Form input[type="checkbox"],
+#resource_management_Form input[type="radio"] {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 8px 0 0; 
+}
+
+#resource_management_Form .inline-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    margin: 0; 
+    white-space: nowrap; 
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#resource_management_Form .inline-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap; 
+    margin: 0; 
+}
+
+#resource_management_Form .radio-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px; 
+    margin: 0;
+}
+
+/* type_of_resource_Form */
+/* Checkbox / inline control helpers*/
+
+#type_of_resource_Form input[type="radio"] {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 8px 0 0; 
+}
+
+#type_of_resource_Form .inline-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    margin: 0; 
+    white-space: nowrap; 
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#type_of_resource_Form .inline-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap; 
+    margin: 0; 
+}
+
+#type_of_resource_Form .radio-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px; 
+    margin: 0;
+}
+
+/* Buttons (reuse global button style) */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .booking-container {
+        padding: 20px;
+    }
+
+    #resource_management_SelectionForm {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #resource_management_SelectionForm input {
+        width: 100%;
+    }
+
+    table, th, td {
+        font-size: 12px;
+    }
+}
