@@ -1,0 +1,70 @@
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background-image: url('../css/SGW_building_pic.png');
+    background-size: cover;
+    background-position: center;
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+.booking-Status {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.booking-Status h1 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 24px;
+    font-size: 28px;
+}
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0 40px 0;
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+caption {
+    caption-side: top;
+    text-align: left;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+}
+
+th, td {
+    border: 1px solid var(--border);
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background-color: var(--primary);
+    color: white;
+}
+
+tr:nth-child(even) td {
+    background-color: var(--hover);
+}
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .booking-Status {
+        padding: 20px;
+    }
+    table, th, td {
+        font-size: 12px;
+    }
+}
