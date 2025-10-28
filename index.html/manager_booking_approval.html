@@ -23,24 +23,24 @@
                 <th>Action</th>
             </tr>
             <tr>
-                <td>1024</td>
-                <td>John Lee</td>
-                <td>Lab A - Microscope</td>
-                <td>Oct 30, 10:00–12:00</td>
-                <td>Biology Experiment</td>
-                <td >Pending</td>
+                <td id="student_id1"></td>
+                <td id="name1"></td>
+                <td id="resource1"></td>
+                <td id="date_time1"></td>
+                <td id="purpose1"></td>
+                <td id="status1"></td>
                 <td>
                     <button class="btn btn-primary" onclick="approveBooking(this)">Approve</button>
                     <button class="btn btn-primary" onclick="declineBooking(this)">Decline</button>
                 </td>
             </tr>
             <tr>
-                <td>1025</td>
-                <td>Sarah Kim</td>
-                <td>Software: MATLAB</td>
-                <td>Oct 30, 13:00–15:00</td>
-                <td>Engineering Project</td>
-                <td >Pending</td>
+                <td id="student_id2"></td>
+                <td id="name2"></td>
+                <td id="resource2"></td>
+                <td id="date_time2"></td>
+                <td id="purpose2"></td>
+                <td id="status2"></td>
                 <td>
                     <button class="btn btn-primary" onclick="approveBooking(this)">Approve</button>
                     <button class="btn btn-primary" onclick="declineBooking(this)">Decline</button>
@@ -48,5 +48,46 @@
             </tr>
         </table>
     </div>
+    <script>
+        const bookingRequests = [
+            {
+                studentId: 1024,
+                name: "John Lee",
+                resource: "Lab A - Microscope",
+                dateTime: "Oct 30, 10:00–12:00",
+                purpose: "Biology Experiment",
+                status: "Pending"
+            },
+            {
+                studentId: 1025,
+                name: "Sarah Kim",
+                resource: "Software: MATLAB",
+                dateTime: "Oct 30, 13:00–15:00",
+                purpose: "Engineering Project",
+                status: "Pending"
+            }
+        ];
+        document.getElementById("student_id1").textContent = bookingRequests[0].studentId;
+        document.getElementById("name1").textContent = bookingRequests[0].name;
+        document.getElementById('resource1').textContent = bookingRequests[0].resource;
+        document.getElementById('date_time1').textContent = bookingRequests[0].dateTime;
+        document.getElementById('purpose1').textContent = bookingRequests[0].purpose;
+        document.getElementById('status1').textContent = bookingRequests[0].status;
+        document.getElementById('student_id2').textContent = bookingRequests[1].studentId;
+        document.getElementById('name2').textContent = bookingRequests[1].name;
+        document.getElementById('resource2').textContent = bookingRequests[1].resource;
+        document.getElementById('date_time2').textContent = bookingRequests[1].dateTime;
+        document.getElementById('purpose2').textContent = bookingRequests[1].purpose;
+        document.getElementById('status2').textContent = bookingRequests[1].status;
+        function approveBooking(button) {
+            const row = button.closest('tr');
+            row.querySelector('#status').textContent = 'Approved';
+        }
+
+        function declineBooking(button) {
+            const row = button.closest('tr');
+            row.querySelector('#status').textContent = 'Declined';
+        }
+    </script>
 </body>
 </html>

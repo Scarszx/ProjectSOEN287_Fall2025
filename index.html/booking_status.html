@@ -22,14 +22,32 @@
                 <th>Status</th>
             </tr>
             <tr>
-                <td>1024</td>
-                <td>John Lee</td>
-                <td>Lab A - Microscope</td>
-                <td>Oct 30, 10:00–12:00</td>
-                <td>Biology Experiment</td>
-                <td>Pending</td>
+                <td id="student_id1"></td>
+                <td id="name1"></td>
+                <td id="resource1"></td>
+                <td id="date_time1"></td>
+                <td id="purpose1"></td>
+                <td id="status1"></td>
             </tr>
         </table>
     </div>
+    <script>
+        const bookingRequests = [
+            {
+                studentId: 1024,
+                name: "John Lee",
+                resource: "Lab A - Microscope",
+                dateTime: "Oct 30, 10:00–12:00",
+                purpose: "Biology Experiment",
+                status: "Pending"
+            }
+        ];
+        document.getElementById("student_id1").textContent = bookingRequests[0].studentId;
+        document.getElementById("name1").textContent = bookingRequests[0].name;
+        document.getElementById('resource1').textContent = bookingRequests[0].resource;
+        document.getElementById('date_time1').textContent = bookingRequests[0].dateTime;
+        document.getElementById('purpose1').textContent = bookingRequests[0].purpose;
+        document.getElementById('status1').textContent = bookingRequests[0].status;
+    </script>
 </body>
 </html>
