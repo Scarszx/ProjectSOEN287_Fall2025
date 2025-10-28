@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Booking Approval</title>
+    <link rel="stylesheet" href="../css/manage_booking.css">
+    <link rel="stylesheet" href="../css/stylesLOGIN.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="../css/icons/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../css/icons/favicon_io/favicon-16x16.png">
+</head>
+<body>
+    <div id="booking-requests">
+        <h1>Booking Requests Management</h1>
+        <table>
+            <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Resource</th>
+                <th>Date & Time</th>
+                <th>Purpose</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td>1024</td>
+                <td>John Lee</td>
+                <td>Lab A - Microscope</td>
+                <td>Oct 30, 10:00–12:00</td>
+                <td>Biology Experiment</td>
+                <td >Pending</td>
+                <td>
+                    <button class="btn btn-primary" onclick="approveBooking(this)">Approve</button>
+                    <button class="btn btn-primary" onclick="declineBooking(this)">Decline</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1025</td>
+                <td>Sarah Kim</td>
+                <td>Software: MATLAB</td>
+                <td>Oct 30, 13:00–15:00</td>
+                <td>Engineering Project</td>
+                <td >Pending</td>
+                <td>
+                    <button class="btn btn-primary" onclick="approveBooking(this)">Approve</button>
+                    <button class="btn btn-primary" onclick="declineBooking(this)">Decline</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
