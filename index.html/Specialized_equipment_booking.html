@@ -35,9 +35,9 @@
                 </tr>
                 <tr>
                     <th> 8:00 </th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td id="Sunday8"></td>
+                    <td id="Monday8"></td>
+                    <td id="Tuesday8"></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -45,7 +45,7 @@
                 </tr>
                 <tr>
                     <th> 9:00 </th>
-                    <td></td>
+                    <td id="Sunday9"></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -144,6 +144,22 @@
                     <td></td>
                 </tr>
         </table>
+        <script>
+            // Sample data for current schedule
+            const scheduleData = {
+                "Sunday8": "free",
+                "Monday8": "booked",
+                "Sunday9": "school closed"
+            };
+
+            // Populate the schedule table
+            for (const [id, text] of Object.entries(scheduleData)) {
+                const cell = document.getElementById(id);
+                if (cell) {
+                    cell.textContent = text;
+                }
+            }
+        </script>
         <form id="bookingForm">
             <div class="form-group">
                 <label for="date">Select Date(Year, Month, Day):</label>
