@@ -58,6 +58,25 @@ tr:nth-child(even) td {
     background-color: var(--hover);
 }
 
+/* Buttons (reuse global button style) */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -67,4 +86,5 @@ tr:nth-child(even) td {
     table, th, td {
         font-size: 12px;
     }
+
 }
