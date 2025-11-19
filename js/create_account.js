@@ -1,21 +1,25 @@
-document.getElementById("registerForm").onsubmit = function(e){
+document.getElementById("registerForm").onsubmit = async function(e) {
     e.preventDefault();
 
-    var username = document.getElementById("new_username").value;
-    var statusElement = document.querySelector('input[name="status"]:checked');
-    var status = statusElement ? statusElement.value : '';
+    const data = {
+        first_name: document.getElementById("first_name").value,
+        last_name: document.getElementById("last_name").value,
+        email: document.getElementById("email").value,
+        status: document.querySelector('input[name="status"]:checked').value,
+        id_number: document.getElementById("id").value,
+        new_username: document.getElementById("new_username").value,
+        new_password: document.getElementById("new_password").value
+    };
 
-    var password = document.getElementById("new_password").value;
-    var confirmPassword = document.getElementById("confirm_password").value;
-    if(password !== confirmPassword){
-        alert("Passwords do not match!");
-        return;
+    const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+    alert(result.message);
+    if (result.success) {
+        window.location.href = "/index.html/login_page.html";
     }
-
-
-    // Store as plain string in cookie: username|password|status
-    document.cookie = "user=" + username + "|" + password + "|" + status + ";path=/";
-
-    alert("Account created!");
-    window.location.href = "../index.html/login_page.html";
 };
