@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESOURCES MANAGEMENT</title>
+    <link rel="stylesheet" href="../css/resource_management.css">
+    <link rel="stylesheet" href="../css/stylesLOGIN.css">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="../css/icons/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../css/icons/favicon_io/favicon-16x16.png">
+
+</head>
+<body>
+    <!-- header -->
+    <div id="header-container"></div>
+    <div class="resource_management-container">
+        <a href="resources_management.html">Back</a>
+        <h1>Resource Management</h1>
+        <form id="resource_management_Form">
+            <div class="form-group">
+                <label for="date">Select Date(Year, Month, Day):</label>
+                <input type="date" id="date" name="date" required>
+                <button type="submit" class="btn btn-primary">Close school</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Script to load header dynamically -->
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("header-container").innerHTML = html;
+      })
+      .then(() => {
+        // Optional: dynamically set user info (simulate logged-in user)
+        const user = { name: "John Doe", role: "Student" };
+        document.getElementById("username").textContent = user.name;
+        document.getElementById("userRole").textContent = user.role;
+      })
+      .catch(err => console.error("Error loading header:", err));
+  </script>
+</body>
+
+</html>
+
+
+
