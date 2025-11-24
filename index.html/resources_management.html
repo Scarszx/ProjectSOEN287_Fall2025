@@ -17,18 +17,6 @@
     <div class="resource_management-container">
         <a href="page2.html">Back to main page</a>
         <h1>Resource Management</h1>
-        <form id="type_of_resource_Form">
-            <label for="type_of_resource">Type of resource:</label>
-            <div class="form-group">
-                <div class="radio-row">
-                    <label class="inline-label" for="room"><input type="radio" id="room" name="type_of_resource" value="room" required>Room</label>
-                    <label class="inline-label" for="lab"><input type="radio" id="lab" name="type_of_resource" value="lab" required>Lab</label>
-                    <label class="inline-label" for="equipment"><input type="radio" id="equipment" name="type_of_resource" value="equipment" required>Equipment</label>
-                    <label class="inline-label" for="software"><input type="radio" id="software" name="type_of_resource" value="software" required>Software</label>
-                    <label class="inline-label" for="sports_facility"><input type="radio" id="sports_facility" name="type_of_resource" value="sports_facility" required>Sports Facility</label>
-                </div>
-            </div>
-        </form>
         <form id="resource_management_SelectionForm">
             <input type="text" id="resource_id" name="resource_id" placeholder="Enter resource id for Current Schedule">
             <button type="submit" class="btn btn-primary">Search Resource</button>
@@ -162,14 +150,14 @@
                 <div class="radio-row">
                     <label for="Status">Status:</label>
                     <label class="inline-label" for="free"><input type="radio" id="free" name="Status" value="free" required>Free - Quantity: </label>
-                    <input type="text" id="quantity" name="Status" placeholder="For rooms and labs, quantity should only be 1 and 0">
                     <label class="inline-label" for="booked"><input type="radio" id="booked" name="Status" value="booked" required>Booked</label>
-                    <label class="inline-label" for="school_closed"><input type="radio" id="school_closed" name="Status" value="school_closed" required>School Closed</label>
+                    <label class="inline-label" for="school_closed"><input type="radio" id="school_closed" name="Status" value="maintenance" required>Maintenance</label>
                     <label class="inline-label" for="not_avaliable_for_other_reasons"><input type="radio" id="not_avaliable_for_other_reasons" name="Status" value="not_avaliable_for_other_reasons" required>Not avaliable for other reasons</label> 
                 </div>
-                <button type="submit" class="btn btn-primary">Book Room</button>
+                <button type="submit" class="btn btn-primary">Change Status</button>
             </div>
         </form>
+        <a href="school_close.html">school closed?</a>
     </div>
 
     <!-- Script to load header dynamically -->
