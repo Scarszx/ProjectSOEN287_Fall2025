@@ -130,6 +130,78 @@ app.post('/submit/create_resource', (req, res) => {
   });
 });
 
+//room booking
+app.post('/submit/room_booking', (req, res) => {
+    const resource_id = req.body.resource_id;
+    const date = req.body.date;
+    const start_time = Number(req.body.start_time);
+    const end_time = Number(req.body.end_time);
+    const purpose = req.body.purpose;
+
+    if (end_time <= start_time) {
+        return res.send(`<script>
+            alert('End time must be later than start time.');
+            window.location.href = '/room_booking.html';
+        </script>`);
+    }
+
+    const checksql = `SELECT COUNT(*) AS count FROM resource WHERE resource_id=?`;
+
+    //Check if resource exists
+    db.query(checksql, [resource_id], (err, results) => {
+        if (err) {
+            return res.status(500).send('Error checking resource id');
+        }
+        if (results[0].count == 0) {
+            return res.send(`<script>
+                alert('Resource ID does not exist. Please choose a different ID.');
+                window.location.href = '/room_booking.html';
+            </script>`);
+        }
+
+        //Check resource type NOW inside callback
+        const checktypesql = `SELECT resource_type FROM resource WHERE resource_id=?`;
+
+        db.query(checktypesql, [resource_id], (err, rows) => {
+            if (err) {
+                return res.status(500).send('Error checking resource type');
+            }
+
+            if (rows[0].resource_type !== "room") {
+                return res.send(`<script>
+                    alert('Resource ID is not a room. Please choose a different ID.');
+                    window.location.href = '/room_booking.html';
+                </script>`);
+            }
+
+            //Insert booking ONLY after type check succeeds
+            const sql = `INSERT INTO room_booking 
+                        (resource_id, date, start_time, end_time, purpose) 
+                        VALUES (?, ?, ?, ?, ?)`;
+
+            db.query(sql, [resource_id, date, start_time, end_time, purpose], (err) => {
+                if (err) {
+                    return res.status(500).send('Error inserting data: ' + err.message);
+                }
+
+                res.send(`
+                    added successfully:<br>
+                    resource id: ${resource_id}<br>
+                    date: ${date}<br>
+                    start time: ${start_time}:00<br>
+                    end time: ${end_time}:00<br>
+                    purpose: ${purpose}<br>
+                    Redirecting in 2 seconds...
+                    <script>
+                        setTimeout(() => {
+                            window.location.href = '/page1.html';
+                        }, 2000);
+                    </script>
+                `);
+            });
+        });
+    });
+});
 
 // Start server
 app.listen(PORT, () => {
