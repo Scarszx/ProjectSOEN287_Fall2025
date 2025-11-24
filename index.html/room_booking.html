@@ -22,145 +22,96 @@
             <input type="text" id="roomNumber" name="roomNumber" placeholder="Enter Room Number for Current Schedule">
             <button type="submit" class="btn btn-primary">Search Room</button>
         </form>
-        <table >
-            <caption> Current Schedule </caption>
-                <tr>
-                    <th> </th>
-                    <th>Sunday</th>
-                    <th>Monday</th>
-                    <th>Tuesday</th>
-                    <th>Wednesday</th>
-                    <th>Thursday</th>
-                    <th>Friday</th>
-                    <th>Saturday</th>
-                </tr>
-                <tr>
-                    <th> 8:00 </th>
-                    <td id="Sunday8"></td>
-                    <td id="Monday8"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th> 9:00 </th>
-                    <td id="Sunday9"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th> 10:00 </th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th> 11:00 </th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th> 12:00 </th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th> 13:00 </th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th> 14:00 </th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th> 15:00 </th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th> 16:00 </th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th> 17:00 </th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th> 18:00 </th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-        </table>
-        <script>
-            // Sample data for current schedule
-            const scheduleData = {
-                "Sunday8": "free",
-                "Monday8": "booked",
-                "Sunday9": "school closed"
-            };
+          <div id="calendar-controls">
+          <button id="prev-week">Previous Week</button>
+          <input type="date" id="week-picker" />
+          <button id="next-week">Next Week</button>
+        </div>
 
-            // Populate the schedule table
-            for (const [id, text] of Object.entries(scheduleData)) {
-                const cell = document.getElementById(id);
-                if (cell) {
-                    cell.textContent = text;
-                }
+        <table id="weekly-calendar" border="1">
+          <thead>
+            <tr id="week-days-header">
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody id="time-slots-body"></tbody>
+        </table>
+
+        <script>
+          // Get start date of the week for given date
+          function getStartOfWeek(date) {
+            const day = date.getDay();
+            const diff = date.getDate() - day;
+            return new Date(date.setDate(diff));
+          }
+
+          let currentWeekStart = getStartOfWeek(new Date());
+
+          function updateCalendar(weekStart) {
+            const headerRow = document.getElementById('week-days-header');
+            const tbody = document.getElementById('time-slots-body');
+
+            headerRow.innerHTML = '<th>Time</th>';
+            tbody.innerHTML = '';
+
+            // Create headers for days of week
+            for (let i = 0; i < 7; i++) {
+              let d = new Date(weekStart);
+              d.setDate(weekStart.getDate() + i);
+
+              let dayStr = d.toLocaleDateString(undefined, {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric'
+              });
+
+              let th = document.createElement('th');
+              th.textContent = dayStr;
+              headerRow.appendChild(th);
             }
+
+            // Create rows for each hour 8 to 18 with time label column
+            for (let hour = 8; hour <= 18; hour++) {
+              let tr = document.createElement('tr');
+
+              let timeTd = document.createElement('td');
+              timeTd.textContent = `${hour}:00`;
+              tr.appendChild(timeTd);
+
+              for (let i = 0; i < 7; i++) {
+                let d = new Date(weekStart);
+                d.setDate(weekStart.getDate() + i);
+
+                let cell = document.createElement('td');
+                cell.id = `cell-${d.toISOString().split('T')[0]}-${hour}`;
+                cell.textContent = 'Loading...'; // Placeholder
+                tr.appendChild(cell);
+              }
+
+              tbody.appendChild(tr);
+            }
+          }
+
+          // Initialize calendar
+          updateCalendar(new Date(currentWeekStart));
+
+          document.getElementById('prev-week').addEventListener('click', () => {
+            currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+            updateCalendar(new Date(currentWeekStart));
+          });
+
+          document.getElementById('next-week').addEventListener('click', () => {
+            currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+            updateCalendar(new Date(currentWeekStart));
+          });
+
+          document.getElementById('week-picker').addEventListener('change', (e) => {
+            const selectedDate = new Date(e.target.value);
+            currentWeekStart = getStartOfWeek(selectedDate);
+            updateCalendar(new Date(currentWeekStart));
+          });
         </script>
+
         <form id="bookingForm">
             <div class="form-group">
                 <label for="date">Select Date(Year, Month, Day):</label>
@@ -275,3 +226,4 @@
 </body>
 
 </html>
+
