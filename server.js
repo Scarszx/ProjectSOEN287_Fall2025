@@ -273,7 +273,7 @@ app.post('/submit/lab_booking', (req, res) => {
                     start time: ${start_time}:00<br>
                     end time: ${end_time}:00<br>
                     equipment: ${equipment}<br>
-                    additional_equipment: ${additional_equipment}
+                    additional_equipment: ${additional_equipment}<br>
                     purpose: ${purpose}<br>
                     Redirecting in 2 seconds...
                     <script>
