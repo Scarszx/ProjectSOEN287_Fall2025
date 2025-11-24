@@ -112,7 +112,7 @@
           });
         </script>
 
-        <form id="bookingForm">
+        <form id="bookingForm" method="post" action="/submit/equipment_booking">
             <div class="form-group">
                 <label for="resource_id">Resource id: </label>
                 <input type="text" id="resource_id" name="resource_id" required>
@@ -151,7 +151,7 @@
                 </select>
                 <label for="purpose">Purpose of Booking:</label>
                 <textarea id="purpose" name="purpose"></textarea>
-                <label>*Equipment will able to pick up at administration</label>
+                <label>*Equipment will be able to pick up at administration</label>
                 <button type="submit" class="btn btn-primary">Book Specialized Equipment</button>
             </div>
         </form>
