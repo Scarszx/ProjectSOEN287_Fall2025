@@ -444,6 +444,81 @@ app.post('/submit/Sports_Facilities_booking', (req, res) => {
     });
 });
 
+//software_seat_booking booking
+app.post('/submit/software_seat_booking', (req, res) => {
+    const resource_id = req.body.resource_id;
+    const date = req.body.date;
+    const start_time = Number(req.body.start_time);
+    const end_time = Number(req.body.end_time);
+    const purpose = req.body.purpose;
+    const software_access_method = req.body.software_access_method;
+
+    if (end_time <= start_time) {
+        return res.send(`<script>
+            alert('End time must be later than start time.');
+            window.location.href = '/software_seat_booking.html';
+        </script>`);
+    }
+
+    const checksql = `SELECT COUNT(*) AS count FROM resource WHERE resource_id=?`;
+
+    //Check if resource exists
+    db.query(checksql, [resource_id], (err, results) => {
+        if (err) {
+            return res.status(500).send('Error checking resource id');
+        }
+        if (results[0].count == 0) {
+            return res.send(`<script>
+                alert('Resource ID does not exist. Please choose a different ID.');
+                window.location.href = '/software_seat_booking.html';
+            </script>`);
+        }
+
+        //Check resource type NOW inside callback
+        const checktypesql = `SELECT resource_type FROM resource WHERE resource_id=?`;
+
+        db.query(checktypesql, [resource_id], (err, rows) => {
+            if (err) {
+                return res.status(500).send('Error checking resource type');
+            }
+
+            if (rows[0].resource_type !== "software_seat") {
+                return res.send(`<script>
+                    alert('Resource ID is not a software seat. Please choose a different ID.');
+                    window.location.href = '/software_seat_booking.html';
+                </script>`);
+            }
+
+            //Insert booking ONLY after type check succeeds
+            const sql = `INSERT INTO software_seat_booking 
+                        (resource_id, date, start_time, end_time, purpose, software_access_method) 
+                        VALUES (?, ?, ?, ?, ?, ?)`;
+
+            db.query(sql, [resource_id, date, start_time, end_time, purpose, software_access_method], (err) => {
+                if (err) {
+                    return res.status(500).send('Error inserting data: ' + err.message);
+                }
+
+                res.send(`
+                    added successfully:<br>
+                    resource id: ${resource_id}<br>
+                    date: ${date}<br>
+                    start time: ${start_time}:00<br>
+                    end time: ${end_time}:00<br>
+                    purpose: ${purpose}<br>
+                    software_access_method: ${software_access_method}<br>
+                    Redirecting in 2 seconds...
+                    <script>
+                        setTimeout(() => {
+                            window.location.href = '/page1.html';
+                        }, 2000);
+                    </script>
+                `);
+            });
+        });
+    });
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
