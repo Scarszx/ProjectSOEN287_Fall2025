@@ -85,6 +85,52 @@ app.get('/api/logout', (req, res) => {
     res.json({ success: true });
 });
 
+
+//create resource
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.get('/page2', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html', 'page2.html'));
+});
+app.post('/submit/create_resource', (req, res) => {
+  const resource_name = req.body.resource_name;
+  const resource_type = req.body.resource_type;
+  const resource_id = req.body.resource_id;
+  const resource_description = req.body.resource_description;
+  const checksql=`SELECT COUNT(*) AS count FROM resource Where resource_id=?`;
+  db.query(checksql, [resource_id], (err, results) => {
+  if (err) {
+    return res.status(500).send('Error checking resource id');
+  }
+  if (results[0].count > 0) {
+    return res.send(`<script>
+      alert('Resource ID already exists. Please choose a different ID.');
+      window.location.href = '/create_resource.html';
+    </script>`);
+  } else {
+    const sql = 'INSERT INTO resource (resource_name, resource_type, resource_id, resource_description) VALUES (?, ?, ?, ?)';
+    db.query(sql,[resource_name, resource_type, resource_id, resource_description], (err, result) => {
+    if (err) {
+      res.status(500).send('Error inserting data');
+    } else {
+      res.send(`added sucesfully:<br>
+        resource name:${resource_name}<br>
+        resource type:${resource_type}<br>
+        resource id:${resource_id}<br>
+        resource description:${resource_description}<br>
+        Redirecting in 2 seconds...
+        <script>
+            setTimeout(() => {
+                window.location.href = '/page2';
+            }, 2000);
+        </script>`);
+    }
+    });
+  }
+  });
+});
+
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
