@@ -34,10 +34,6 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-app.use(express.static(path.join(__dirname, 'index.html')));  
-app.use('/css', express.static(path.join(__dirname, 'css')));
-app.use('/js', express.static(path.join(__dirname, 'js')));
-
 // Routes
 app.post('/api/register', (req, res) => {
     const { first_name, last_name, email, status, id_number, new_username, new_password } = req.body;
@@ -47,7 +43,8 @@ app.post('/api/register', (req, res) => {
     db.query(sql, [first_name, last_name, email, status, id_number, new_username, hashed], (err, result) => {
         if (err) {
             if (err.code === 'ER_DUP_ENTRY') return res.json({ success: false, message: 'Username/Email/ID already taken' });
-            return res.json({ success: false, message: 'Error' });
+            console.error(err);
+            return res.json({ success: false, message: 'Database error' });
         }
         res.json({ success: true, message: 'Account created!' });
     });
@@ -595,8 +592,13 @@ app.post('/submit/resource_management/schoolclose', (req, res) => {
     });
 });
 
+//Statics files
+app.use('/', express.static(path.join(__dirname, 'index.html')));
+app.use('/css', express.static(path.join(__dirname, 'css')));
+app.use('/js', express.static(path.join(__dirname, 'js')));
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
-    console.log(`Go to: http://localhost:${PORT}/login_page.html`);
+    console.log(`Login page: http://localhost:${PORT}/login_page.html`);
 });
