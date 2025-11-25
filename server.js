@@ -612,6 +612,17 @@ app.get('/api/school_close_dates', (req, res) => {
   });
 });
 
+//get resource
+app.get('/api/resources', (req, res) => {
+    db.query('SELECT * FROM resource', (err, results) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+        } else {
+            res.json(results);
+        }
+    });
+});
+
 //Statics files
 app.use('/', express.static(path.join(__dirname, 'index.html')));
 app.use('/css', express.static(path.join(__dirname, 'css')));
