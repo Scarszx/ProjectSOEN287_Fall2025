@@ -16,12 +16,20 @@
     <div id="header-container"></div>
     <div class="resource_management-container">
         <a href="resources_management.html">Back</a>
-        <h1>Resource Management</h1>
+        <h1>Close School</h1>
         <form id="resource_management_Form_school_close" method="post" action="/submit/resource_management/schoolclose">
             <div class="form-group">
                 <label for="date">Select Date(Year, Month, Day):</label>
                 <input type="date" id="date" name="date" required>
                 <button type="submit" class="btn btn-primary">Close School</button>
+            </div>
+        </form>
+        <h1>Open School</h1>
+        <form id="resource_management_Form_school_open" method="post" action="/submit/resource_management/schoolopen">
+            <div class="form-group">
+                <label for="date">Select Date(Year, Month, Day):</label>
+                <input type="date" id="date" name="date" required>
+                <button type="submit" class="btn btn-primary">Open School</button>
             </div>
         </form>
     </div>
@@ -44,6 +52,7 @@
 </body>
 
 </html>
+
 
 
 
