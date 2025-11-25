@@ -18,11 +18,11 @@
     <div class="booking-container">
     <button><a href="page1.html">Back to Home</a></button>
         <h1>Lab Booking</h1>
-        <form id="labSelectionForm">
-            <input type="text" id="labNumber" name="labNumber" placeholder="Enter Lab Number for Current Schedule">
-            <button type="submit" class="btn btn-primary">Search Lab</button>
+        <form id="roomSelectionForm">
+            <input type="text" id="roomNumber" name="roomNumber" placeholder="Enter resource id for Current Schedule">
+            <button type="submit" class="btn btn-primary">Search Room</button>
         </form>
-        <div id="calendar-controls">
+          <div id="calendar-controls">
           <button id="prev-week">Previous Week</button>
           <input type="date" id="week-picker" />
           <button id="next-week">Next Week</button>
@@ -111,6 +111,7 @@
             updateCalendar(new Date(currentWeekStart));
           });
         </script>
+        <script src="../js/room_calendar.js" defer></script>
 
         <form id="bookingForm" method="post" action="/submit/lab_booking">
             <div class="form-group">
@@ -194,6 +195,7 @@
 </body>
 
 </html>
+
 
 
 
