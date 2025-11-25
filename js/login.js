@@ -6,16 +6,24 @@ document.getElementById("loginForm").onsubmit = async function(e) {
         password: document.getElementById("password").value
     };
 
-    const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    });
+    try {
+        const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
 
-    const result = await res.json();
-    alert(result.message);
+        const result = await res.json();
 
-    if (result.success) {
-        window.location.href = result.redirect;
+        if (result.success) {
+            // Success 
+            window.location.href = result.redirect;
+        } else {
+            // show alert on error
+            alert(result.message || "Login failed. Please try again.");
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Server error. Please try again later.");
     }
 };

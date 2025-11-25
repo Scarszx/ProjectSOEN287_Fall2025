@@ -61,9 +61,9 @@ app.post('/api/login', (req, res) => {
         const user = results[0];
         req.session.user = user;
 
-        let redirect = '/student_dashboard.html';
-        if (user.status === 'faculty') redirect = '/faculty_dashboard.html';
-        if (user.status === 'resource_manager') redirect = '/manager_dashboard.html';
+        let redirect = '/page1.html';
+        if (user.status === 'faculty') redirect = '/page1.html';
+        if (user.status === 'resource_manager') redirect = '/page1.html';
 
         res.json({ success: true, redirect });
     });
