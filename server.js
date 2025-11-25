@@ -574,6 +574,27 @@ app.post('/submit/resource_management', (req, res) => {
     });
 });
 
+//resource management - school close
+app.post('/submit/resource_management/schoolclose', (req, res) => {
+    const date = req.body.date;
+    const sql = `INSERT INTO schoolclose (date) VALUES (?)`;
+    db.query(sql, [date], (err) => {
+        if (err) {
+            return res.status(500).send('Error inserting data: ' + err.message);
+        }
+        res.send(`
+            added successfully:<br>
+            date: ${date}<br>
+            Redirecting in 2 seconds...
+            <script>
+                setTimeout(() => {
+                    window.location.href = '/page2.html';
+                }, 2000);
+            </script>
+        `);
+    });
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
