@@ -18,9 +18,9 @@
     <div class="booking-container">
     <button><a href="page1.html">Back to Home</a></button>
         <h1>Sports_Facilities Booking</h1>
-        <form id="Sports_Facilities_SelectionForm">
-            <input type="text" id="Sports_Facilities_Number" name="Sports_Facilities_Number" placeholder="Enter Sports Facilities Number for Current Schedule">
-            <button type="submit" class="btn btn-primary">Search Sports Facilities</button>
+        <form id="roomSelectionForm">
+            <input type="text" id="roomNumber" name="roomNumber" placeholder="Enter resource id for Current Schedule">
+            <button type="submit" class="btn btn-primary">Search Room</button>
         </form>
           <div id="calendar-controls">
           <button id="prev-week">Previous Week</button>
@@ -111,6 +111,7 @@
             updateCalendar(new Date(currentWeekStart));
           });
         </script>
+        <script src="../js/room_calendar.js" defer></script>
 
         <form id="bookingForm" method="post" action="/submit/Sports_Facilities_booking">
             <div class="form-group">
@@ -196,6 +197,7 @@
 </body>
 
 </html>
+
 
 
 
