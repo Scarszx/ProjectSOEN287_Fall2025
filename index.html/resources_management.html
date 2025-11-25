@@ -110,7 +110,7 @@
             updateCalendar(new Date(currentWeekStart));
           });
         </script>
-        <form id="resource_management_Form">
+        <form id="resource_management_Form" method="post" action="/submit/resource_management">
             <div class="form-group">
                 <label for="resource_id">Resource id: </label>
                 <input type="text" id="resource_id" name="resource_id" required>
@@ -151,7 +151,7 @@
                     <label for="Status">Status:</label>
                     <label class="inline-label" for="free"><input type="radio" id="free" name="Status" value="free" required>Free - Quantity: </label>
                     <label class="inline-label" for="booked"><input type="radio" id="booked" name="Status" value="booked" required>Booked</label>
-                    <label class="inline-label" for="school_closed"><input type="radio" id="school_closed" name="Status" value="maintenance" required>Maintenance</label>
+                    <label class="inline-label" for="maintenance"><input type="radio" id="maintenance" name="Status" value="maintenance" required>Maintenance</label>
                     <label class="inline-label" for="not_avaliable_for_other_reasons"><input type="radio" id="not_avaliable_for_other_reasons" name="Status" value="not_avaliable_for_other_reasons" required>Not avaliable for other reasons</label> 
                 </div>
                 <button type="submit" class="btn btn-primary">Change Status</button>
