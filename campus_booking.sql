@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- 主機： 127.0.0.1
--- 產生時間： 2025-11-25 05:59:44
--- 伺服器版本： 10.4.32-MariaDB
--- PHP 版本： 8.0.30
+-- Host: localhost
+-- Generation Time: Nov 25, 2025 at 11:03 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫： `campus_booking`
+-- Database: `campus_booking`
 --
 
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `equipment_booking`
+-- Table structure for table `equipment_booking`
 --
 
 CREATE TABLE `equipment_booking` (
@@ -36,7 +36,7 @@ CREATE TABLE `equipment_booking` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- 傾印資料表的資料 `equipment_booking`
+-- Dumping data for table `equipment_booking`
 --
 
 INSERT INTO `equipment_booking` (`resource_id`, `date`, `start_time`, `end_time`, `purpose`) VALUES
@@ -49,7 +49,7 @@ INSERT INTO `equipment_booking` (`resource_id`, `date`, `start_time`, `end_time`
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `lab_booking`
+-- Table structure for table `lab_booking`
 --
 
 CREATE TABLE `lab_booking` (
@@ -63,7 +63,7 @@ CREATE TABLE `lab_booking` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- 傾印資料表的資料 `lab_booking`
+-- Dumping data for table `lab_booking`
 --
 
 INSERT INTO `lab_booking` (`resource_id`, `date`, `start_time`, `end_time`, `equipment`, `additional_equipment`, `purpose`) VALUES
@@ -75,7 +75,7 @@ INSERT INTO `lab_booking` (`resource_id`, `date`, `start_time`, `end_time`, `equ
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `resource`
+-- Table structure for table `resource`
 --
 
 CREATE TABLE `resource` (
@@ -86,7 +86,7 @@ CREATE TABLE `resource` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- 傾印資料表的資料 `resource`
+-- Dumping data for table `resource`
 --
 
 INSERT INTO `resource` (`resource_name`, `resource_type`, `resource_id`, `resource_description`) VALUES
@@ -99,7 +99,7 @@ INSERT INTO `resource` (`resource_name`, `resource_type`, `resource_id`, `resour
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `resource_status`
+-- Table structure for table `resource_status`
 --
 
 CREATE TABLE `resource_status` (
@@ -112,7 +112,7 @@ CREATE TABLE `resource_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- 傾印資料表的資料 `resource_status`
+-- Dumping data for table `resource_status`
 --
 
 INSERT INTO `resource_status` (`id`, `resource_id`, `date`, `start_time`, `end_time`, `status`) VALUES
@@ -125,7 +125,7 @@ INSERT INTO `resource_status` (`id`, `resource_id`, `date`, `start_time`, `end_t
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `room_booking`
+-- Table structure for table `room_booking`
 --
 
 CREATE TABLE `room_booking` (
@@ -137,7 +137,7 @@ CREATE TABLE `room_booking` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- 傾印資料表的資料 `room_booking`
+-- Dumping data for table `room_booking`
 --
 
 INSERT INTO `room_booking` (`resource_id`, `date`, `start_time`, `end_time`, `purpose`) VALUES
@@ -150,7 +150,7 @@ INSERT INTO `room_booking` (`resource_id`, `date`, `start_time`, `end_time`, `pu
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `schoolclose`
+-- Table structure for table `schoolclose`
 --
 
 CREATE TABLE `schoolclose` (
@@ -158,7 +158,7 @@ CREATE TABLE `schoolclose` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- 傾印資料表的資料 `schoolclose`
+-- Dumping data for table `schoolclose`
 --
 
 INSERT INTO `schoolclose` (`date`) VALUES
@@ -167,7 +167,7 @@ INSERT INTO `schoolclose` (`date`) VALUES
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `software_seat_booking`
+-- Table structure for table `software_seat_booking`
 --
 
 CREATE TABLE `software_seat_booking` (
@@ -180,7 +180,7 @@ CREATE TABLE `software_seat_booking` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- 傾印資料表的資料 `software_seat_booking`
+-- Dumping data for table `software_seat_booking`
 --
 
 INSERT INTO `software_seat_booking` (`resource_id`, `date`, `start_time`, `end_time`, `purpose`, `software_access_method`) VALUES
@@ -191,7 +191,7 @@ INSERT INTO `software_seat_booking` (`resource_id`, `date`, `start_time`, `end_t
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `sports_facilities_booking`
+-- Table structure for table `sports_facilities_booking`
 --
 
 CREATE TABLE `sports_facilities_booking` (
@@ -205,37 +205,78 @@ CREATE TABLE `sports_facilities_booking` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- 傾印資料表的資料 `sports_facilities_booking`
+-- Dumping data for table `sports_facilities_booking`
 --
 
 INSERT INTO `sports_facilities_booking` (`resource_id`, `date`, `start_time`, `end_time`, `equipment`, `additional_equipment`, `purpose`) VALUES
 (4001, '2025-11-27', 8, 18, '[\"Basketballs\",\"Volleyballs\",\"Badminton rackets\"]', 'none', 'aaa');
 
+-- --------------------------------------------------------
+
 --
--- 已傾印資料表的索引
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `status` enum('student','faculty','resource_manager') NOT NULL,
+  `id_number` varchar(20) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `status`, `id_number`, `username`, `password`, `created_at`) VALUES
+(1, 'John', 'Doe', '123@gmail.com', 'student', '12345678', 'JohnDoe', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '2025-11-25 02:56:15'),
+(3, 'Simon', 'King', 'SK@gmail.com', 'faculty', '96354789', 'SK', 'c0d332f416b8f1acd4968a2594d2c2bb5d4545cbb43fb403445d7924c670d3ed', '2025-11-25 21:41:23'),
+(4, 'James', 'What', 'JW@gmail.com', 'resource_manager', '87654321', 'JamesWat', 'e24df920078c3dd4e7e8d2442f00e5c9ab2a231bb3918d65cc50906e49ecaef4', '2025-11-25 21:52:24');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- 資料表索引 `resource`
+-- Indexes for table `resource`
 --
 ALTER TABLE `resource`
   ADD PRIMARY KEY (`resource_id`);
 
 --
--- 資料表索引 `resource_status`
+-- Indexes for table `resource_status`
 --
 ALTER TABLE `resource_status`
   ADD PRIMARY KEY (`id`);
 
 --
--- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `id_number` (`id_number`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `resource_status`
+-- AUTO_INCREMENT for table `resource_status`
 --
 ALTER TABLE `resource_status`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
