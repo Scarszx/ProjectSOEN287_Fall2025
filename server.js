@@ -592,6 +592,26 @@ app.post('/submit/resource_management/schoolclose', (req, res) => {
     });
 });
 
+//calendar control
+// Get bookings for a room
+app.get('/api/room_bookings/:roomId', (req, res) => {
+  const roomId = req.params.roomId;
+  const sql = 'SELECT date, start_time, end_time, status FROM resource_status WHERE resource_id=?';
+  db.query(sql, [roomId], (err, results) => {
+    if (err) return res.status(500).json({error: err.message});
+    res.json(results);
+  });
+});
+
+// Get school closed dates
+app.get('/api/school_close_dates', (req, res) => {
+  const sql = 'SELECT date FROM schoolclose';
+  db.query(sql, (err, results) => {
+    if (err) return res.status(500).json({error: err.message});
+    res.json(results.map(r => r.date.toISOString().split('T')[0]));
+  });
+});
+
 //Statics files
 app.use('/', express.static(path.join(__dirname, 'index.html')));
 app.use('/css', express.static(path.join(__dirname, 'css')));
