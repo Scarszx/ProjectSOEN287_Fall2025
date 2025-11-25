@@ -592,6 +592,28 @@ app.post('/submit/resource_management/schoolclose', (req, res) => {
     });
 });
 
+// resource management - school open
+app.post('/submit/resource_management/schoolopen', (req, res) => {
+    const date = req.body.date;
+    const sql = `DELETE FROM schoolclose WHERE date = ?`;
+    db.query(sql, [date], (err, result) => {
+        if (err) {
+            return res.status(500).send('Error deleting data: ' + err.message);
+        }
+        res.send(`
+            school opened successfully:<br>
+            date: ${date}<br>
+            removed records: ${result.affectedRows}<br>
+            Redirecting in 2 seconds...
+            <script>
+                setTimeout(() => {
+                    window.location.href = '/page2.html';
+                }, 2000);
+            </script>
+        `);
+    });
+});
+
 //calendar control
 // Get bookings for a room
 app.get('/api/room_bookings/:roomId', (req, res) => {
