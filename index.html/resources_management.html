@@ -17,11 +17,11 @@
     <div class="resource_management-container">
         <a href="page2.html">Back to main page</a>
         <h1>Resource Management</h1>
-        <form id="resource_management_SelectionForm">
-            <input type="text" id="resource_id" name="resource_id" placeholder="Enter resource id for Current Schedule">
-            <button type="submit" class="btn btn-primary">Search Resource</button>
+        <form id="roomSelectionForm">
+            <input type="text" id="roomNumber" name="roomNumber" placeholder="Enter resource id for Current Schedule">
+            <button type="submit" class="btn btn-primary">Search Room</button>
         </form>
-        <div id="calendar-controls">
+          <div id="calendar-controls">
           <button id="prev-week">Previous Week</button>
           <input type="date" id="week-picker" />
           <button id="next-week">Next Week</button>
@@ -83,7 +83,7 @@
 
                 let cell = document.createElement('td');
                 cell.id = `cell-${d.toISOString().split('T')[0]}-${hour}`;
-                cell.textContent = 'Free'; // Placeholder
+                cell.textContent = 'Loading...'; // Placeholder
                 tr.appendChild(cell);
               }
 
@@ -110,6 +110,7 @@
             updateCalendar(new Date(currentWeekStart));
           });
         </script>
+        <script src="../js/room_calendar.js" defer></script>
         <form id="resource_management_Form" method="post" action="/submit/resource_management">
             <div class="form-group">
                 <label for="resource_id">Resource id: </label>
@@ -178,6 +179,7 @@
 </body>
 
 </html>
+
 
 
 
