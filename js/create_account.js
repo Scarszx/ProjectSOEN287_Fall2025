@@ -1,6 +1,13 @@
 document.getElementById("registerForm").onsubmit = async function(e) {
     e.preventDefault();
 
+    const password = document.getElementById("new_password").value;
+    const confirmPassword = document.getElementById("confirm_password").value;
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
     const data = {
         first_name: document.getElementById("first_name").value,
         last_name: document.getElementById("last_name").value,
@@ -10,6 +17,7 @@ document.getElementById("registerForm").onsubmit = async function(e) {
         new_username: document.getElementById("new_username").value,
         new_password: document.getElementById("new_password").value
     };
+    
 
     const res = await fetch('/api/register', {
         method: 'POST',
@@ -19,7 +27,10 @@ document.getElementById("registerForm").onsubmit = async function(e) {
 
     const result = await res.json();
     alert(result.message);
+
     if (result.success) {
-        window.location.href = "/index.html/login_page.html";
+        alert("Account created successfully! Please log in.");
+        window.location.href = "/login_page.html";
     }
+    
 };

@@ -26,7 +26,7 @@ db.connect(err => {
 });
 
 // Middleware setup
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(session({
     secret: 'soen287-secret-2025',
     resave: false,
@@ -34,7 +34,7 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-app.use(express.static(path.join(__dirname, 'index.html')));  // your HTML folder
+app.use(express.static(path.join(__dirname, 'index.html')));  
 app.use('/css', express.static(path.join(__dirname, 'css')));
 app.use('/js', express.static(path.join(__dirname, 'js')));
 

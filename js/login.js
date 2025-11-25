@@ -1,4 +1,4 @@
-ddocument.getElementById("loginForm").onsubmit = async function(e) {
+document.getElementById("loginForm").onsubmit = async function(e) {
     e.preventDefault();
 
     const data = {
