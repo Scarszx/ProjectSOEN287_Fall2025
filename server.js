@@ -519,6 +519,82 @@ app.post('/submit/software_seat_booking', (req, res) => {
     });
 });
 
+//resource management
+app.post('/submit/resource_management', (req, res) => {
+    const resource_id = req.body.resource_id;
+    const date = req.body.date;
+    const start_time = Number(req.body.start_time);
+    const end_time = Number(req.body.end_time);
+    const Status = req.body.Status;
+
+    if (end_time <= start_time) {
+        return res.send(`<script>
+            alert('End time must be later than start time.');
+            window.location.href = '/resources_management.html';
+        </script>`);
+    }
+
+    const checksql = `SELECT COUNT(*) AS count FROM resource WHERE resource_id=?`;
+
+    //Check if resource exists
+    db.query(checksql, [resource_id], (err, results) => {
+        if (err) {
+            return res.status(500).send('Error checking resource id');
+        }
+        if (results[0].count == 0) {
+            return res.send(`<script>
+                alert('Resource ID does not exist. Please choose a different ID.');
+                window.location.href = '/resources_management.html';
+            </script>`);
+        }
+
+        //Insert booking ONLY after type check succeeds
+        const sql = `INSERT INTO resource_status 
+                    (resource_id, date, start_time, end_time, status) 
+                    VALUES (?, ?, ?, ?, ?)`;
+        db.query(sql, [resource_id, date, start_time, end_time, Status], (err) => {
+            if (err) {
+                return res.status(500).send('Error inserting data: ' + err.message);
+            }
+            res.send(`
+                added successfully:<br>
+                resource id: ${resource_id}<br>
+                date: ${date}<br>
+                start time: ${start_time}:00<br>
+                end time: ${end_time}:00<br>
+                status: ${Status}<br>
+                Redirecting in 2 seconds...
+                <script>
+                    setTimeout(() => {
+                        window.location.href = '/page2.html';
+                    }, 2000);
+                </script>
+            `);
+        });
+    });
+});
+
+//resource management - school close
+app.post('/submit/resource_management/schoolclose', (req, res) => {
+    const date = req.body.date;
+    const sql = `INSERT INTO schoolclose (date) VALUES (?)`;
+    db.query(sql, [date], (err) => {
+        if (err) {
+            return res.status(500).send('Error inserting data: ' + err.message);
+        }
+        res.send(`
+            added successfully:<br>
+            date: ${date}<br>
+            Redirecting in 2 seconds...
+            <script>
+                setTimeout(() => {
+                    window.location.href = '/page2.html';
+                }, 2000);
+            </script>
+        `);
+    });
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
