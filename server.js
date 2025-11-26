@@ -9,6 +9,9 @@ const crypto = require('crypto');
 const app = express();
 const PORT = 3000;
 
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 //MySQL Database Connection
 const db = mysql.createConnection({
     host: 'localhost',
@@ -60,6 +63,7 @@ app.post('/api/login', (req, res) => {
         }
         const user = results[0];
         req.session.user = user;
+        res.cookie('studentId', user.id_number, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
 
         let redirect = '/page1.html';
         if (user.status === 'faculty') redirect = '/page1.html';
@@ -134,6 +138,10 @@ app.post('/submit/room_booking', (req, res) => {
     const start_time = Number(req.body.start_time);
     const end_time = Number(req.body.end_time);
     const purpose = req.body.purpose;
+    const student_id = req.cookies.studentId;
+    if (!student_id) {
+        return res.status(401).send('No valid student ID cookie found. Please log in.');
+    }
 
     if (end_time <= start_time) {
         return res.send(`<script>
@@ -173,10 +181,10 @@ app.post('/submit/room_booking', (req, res) => {
 
             //Insert booking ONLY after type check succeeds
             const sql = `INSERT INTO room_booking 
-                        (resource_id, date, start_time, end_time, purpose) 
-                        VALUES (?, ?, ?, ?, ?)`;
+                        (resource_id, date, start_time, end_time, purpose, student_id) 
+                        VALUES (?, ?, ?, ?, ?, ?)`;
 
-            db.query(sql, [resource_id, date, start_time, end_time, purpose], (err) => {
+            db.query(sql, [resource_id, date, start_time, end_time, purpose, student_id], (err) => {
                 if (err) {
                     return res.status(500).send('Error inserting data: ' + err.message);
                 }
@@ -188,6 +196,7 @@ app.post('/submit/room_booking', (req, res) => {
                     start time: ${start_time}:00<br>
                     end time: ${end_time}:00<br>
                     purpose: ${purpose}<br>
+                    student id: ${student_id}<br>
                     Redirecting in 2 seconds...
                     <script>
                         setTimeout(() => {
@@ -209,6 +218,10 @@ app.post('/submit/lab_booking', (req, res) => {
     let equipment = req.body.equipment;
     const additional_equipment = req.body.additional_equipment;
     const purpose = req.body.purpose;
+    const student_id = req.cookies.studentId;
+    if (!student_id) {
+        return res.status(401).send('No valid student ID cookie found. Please log in.');
+    }
 
     if(equipment==null){
         equipment=["no equipment"]
@@ -255,10 +268,10 @@ app.post('/submit/lab_booking', (req, res) => {
 
             //Insert booking ONLY after type check succeeds
             const sql = `INSERT INTO lab_booking 
-                        (resource_id, date, start_time, end_time, equipment, additional_equipment, purpose) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?)`;
+                        (resource_id, date, start_time, end_time, equipment, additional_equipment, purpose, student_id) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
-            db.query(sql, [resource_id, date, start_time, end_time, equipment, additional_equipment, purpose], (err) => {
+            db.query(sql, [resource_id, date, start_time, end_time, equipment, additional_equipment, purpose, student_id], (err) => {
                 if (err) {
                     return res.status(500).send('Error inserting data: ' + err.message);
                 }
@@ -272,6 +285,7 @@ app.post('/submit/lab_booking', (req, res) => {
                     equipment: ${equipment}<br>
                     additional_equipment: ${additional_equipment}<br>
                     purpose: ${purpose}<br>
+                    student id: ${student_id}<br>
                     Redirecting in 2 seconds...
                     <script>
                         setTimeout(() => {
@@ -291,6 +305,10 @@ app.post('/submit/equipment_booking', (req, res) => {
     const start_time = Number(req.body.start_time);
     const end_time = Number(req.body.end_time);
     const purpose = req.body.purpose;
+    const student_id = req.cookies.studentId;
+    if (!student_id) {
+        return res.status(401).send('No valid student ID cookie found. Please log in.');
+    }
 
     if (end_time <= start_time) {
         return res.send(`<script>
@@ -330,10 +348,10 @@ app.post('/submit/equipment_booking', (req, res) => {
 
             //Insert booking ONLY after type check succeeds
             const sql = `INSERT INTO equipment_booking 
-                        (resource_id, date, start_time, end_time, purpose) 
-                        VALUES (?, ?, ?, ?, ?)`;
+                        (resource_id, date, start_time, end_time, purpose, student_id) 
+                        VALUES (?, ?, ?, ?, ?, ?)`;
 
-            db.query(sql, [resource_id, date, start_time, end_time, purpose], (err) => {
+            db.query(sql, [resource_id, date, start_time, end_time, purpose, student_id], (err) => {
                 if (err) {
                     return res.status(500).send('Error inserting data: ' + err.message);
                 }
@@ -345,6 +363,7 @@ app.post('/submit/equipment_booking', (req, res) => {
                     start time: ${start_time}:00<br>
                     end time: ${end_time}:00<br>
                     purpose: ${purpose}<br>
+                    student id: ${student_id}<br>
                     Redirecting in 2 seconds...
                     <script>
                         setTimeout(() => {
@@ -366,6 +385,10 @@ app.post('/submit/Sports_Facilities_booking', (req, res) => {
     let equipment = req.body.equipment;
     const additional_equipment = req.body.additional_equipment;
     const purpose = req.body.purpose;
+    const student_id = req.cookies.studentId;
+    if (!student_id) {
+        return res.status(401).send('No valid student ID cookie found. Please log in.');
+    }
 
     if(equipment==null){
         equipment=["no equipment"]
@@ -412,10 +435,10 @@ app.post('/submit/Sports_Facilities_booking', (req, res) => {
 
             //Insert booking ONLY after type check succeeds
             const sql = `INSERT INTO sports_facilities_booking 
-                        (resource_id, date, start_time, end_time, equipment, additional_equipment, purpose) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?)`;
+                        (resource_id, date, start_time, end_time, equipment, additional_equipment, purpose, student_id) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
-            db.query(sql, [resource_id, date, start_time, end_time, equipment, additional_equipment, purpose], (err) => {
+            db.query(sql, [resource_id, date, start_time, end_time, equipment, additional_equipment, purpose, student_id], (err) => {
                 if (err) {
                     return res.status(500).send('Error inserting data: ' + err.message);
                 }
@@ -429,6 +452,7 @@ app.post('/submit/Sports_Facilities_booking', (req, res) => {
                     equipment: ${equipment}<br>
                     additional_equipment: ${additional_equipment}<br>
                     purpose: ${purpose}<br>
+                    student id: ${student_id}<br>
                     Redirecting in 2 seconds...
                     <script>
                         setTimeout(() => {
@@ -449,6 +473,10 @@ app.post('/submit/software_seat_booking', (req, res) => {
     const end_time = Number(req.body.end_time);
     const purpose = req.body.purpose;
     const software_access_method = req.body.software_access_method;
+    const student_id = req.cookies.studentId;
+    if (!student_id) {
+        return res.status(401).send('No valid student ID cookie found. Please log in.');
+    }
 
     if (end_time <= start_time) {
         return res.send(`<script>
@@ -488,10 +516,10 @@ app.post('/submit/software_seat_booking', (req, res) => {
 
             //Insert booking ONLY after type check succeeds
             const sql = `INSERT INTO software_seat_booking 
-                        (resource_id, date, start_time, end_time, purpose, software_access_method) 
-                        VALUES (?, ?, ?, ?, ?, ?)`;
+                        (resource_id, date, start_time, end_time, purpose, software_access_method, student_id) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
-            db.query(sql, [resource_id, date, start_time, end_time, purpose, software_access_method], (err) => {
+            db.query(sql, [resource_id, date, start_time, end_time, purpose, software_access_method, student_id], (err) => {
                 if (err) {
                     return res.status(500).send('Error inserting data: ' + err.message);
                 }
@@ -504,6 +532,7 @@ app.post('/submit/software_seat_booking', (req, res) => {
                     end time: ${end_time}:00<br>
                     purpose: ${purpose}<br>
                     software_access_method: ${software_access_method}<br>
+                    student id: ${student_id}<br>
                     Redirecting in 2 seconds...
                     <script>
                         setTimeout(() => {
