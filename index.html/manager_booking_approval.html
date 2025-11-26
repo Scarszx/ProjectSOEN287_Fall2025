@@ -10,85 +10,82 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../css/icons/favicon_io/favicon-16x16.png">
 </head>
 <body>
-    <div id="booking-requests">
-        <a href="page2.html">Back to main page</a>
-        <h1>Booking Requests Management</h1>
-        <table>
-            <tr>
-                <th>Student ID</th>
-                <th>Student Name</th>
-                <th>Resource</th>
-                <th>Date & Time</th>
-                <th>Purpose</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            <tr>
-                <td id="student_id1"></td>
-                <td id="name1"></td>
-                <td id="resource1"></td>
-                <td id="date_time1"></td>
-                <td id="purpose1"></td>
-                <td id="status1"></td>
-                <td>
-                    <button class="btn btn-primary" onclick="approveBooking(this)">Approve</button>
-                    <button class="btn btn-primary" onclick="declineBooking(this)">Decline</button>
-                </td>
-            </tr>
-            <tr>
-                <td id="student_id2"></td>
-                <td id="name2"></td>
-                <td id="resource2"></td>
-                <td id="date_time2"></td>
-                <td id="purpose2"></td>
-                <td id="status2"></td>
-                <td>
-                    <button class="btn btn-primary" onclick="approveBooking(this)">Approve</button>
-                    <button class="btn btn-primary" onclick="declineBooking(this)">Decline</button>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <h1>Booking Requests Management</h1>
+
+    <div id="booking-tables"></div>
+
     <script>
-        const bookingRequests = [
-            {
-                studentId: 1024,
-                name: "John Lee",
-                resource: "Lab A - Microscope",
-                dateTime: "Oct 30, 10:00–12:00",
-                purpose: "Biology Experiment",
-                status: "Pending"
-            },
-            {
-                studentId: 1025,
-                name: "Sarah Kim",
-                resource: "Software: MATLAB",
-                dateTime: "Oct 30, 13:00–15:00",
-                purpose: "Engineering Project",
-                status: "Pending"
-            }
-        ];
-        document.getElementById("student_id1").textContent = bookingRequests[0].studentId;
-        document.getElementById("name1").textContent = bookingRequests[0].name;
-        document.getElementById('resource1').textContent = bookingRequests[0].resource;
-        document.getElementById('date_time1').textContent = bookingRequests[0].dateTime;
-        document.getElementById('purpose1').textContent = bookingRequests[0].purpose;
-        document.getElementById('status1').textContent = bookingRequests[0].status;
-        document.getElementById('student_id2').textContent = bookingRequests[1].studentId;
-        document.getElementById('name2').textContent = bookingRequests[1].name;
-        document.getElementById('resource2').textContent = bookingRequests[1].resource;
-        document.getElementById('date_time2').textContent = bookingRequests[1].dateTime;
-        document.getElementById('purpose2').textContent = bookingRequests[1].purpose;
-        document.getElementById('status2').textContent = bookingRequests[1].status;
-        function approveBooking(button) {
-            const row = button.closest('tr');
-            row.querySelector('#status').textContent = 'Approved';
+        async function fetchBookings(type) {
+            const resp = await fetch(`/api/bookings/pending/${type}`);
+            return resp.json();
         }
 
-        function declineBooking(button) {
-            const row = button.closest('tr');
-            row.querySelector('#status').textContent = 'Declined';
+        async function approveBooking(type, id) {
+            const resp = await fetch(`/api/bookings/approve`, {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bookingType: type, bookingId: id })
+            });
+            const data = await resp.json();
+            if (data.success) {
+                alert("Booking approved!");
+                loadAllTables();
+            } else {
+                alert("Cannot approve: " + data.message);
+            }
         }
+
+        async function declineBooking(type, id) {
+            const resp = await fetch(`/api/bookings/decline`, {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bookingType: type, bookingId: id })
+            });
+            const data = await resp.json();
+            if (data.success) {
+                alert("Booking declined and removed.");
+                loadAllTables();
+            } else {
+                alert("Error declining booking: " + data.message);
+            }
+        }
+
+        function makeTable(type, bookings) {
+            if (!bookings.length) return `<h3>${type} - No pending bookings</h3>`;
+            let html = `<h3>${type} Pending Bookings</h3><table>
+                        <tr>
+                            <th>ID</th><th>Student ID</th><th>Resource</th><th>Date</th>
+                            <th>Time</th><th>Purpose</th><th>Actions</th>
+                        </tr>`;
+            bookings.forEach(b => {
+                html += `<tr>
+                    <td>${b.id}</td>
+                    <td>${b.student_id}</td>
+                    <td>${b.resource_name || b.resource_id}</td>
+                    <td>${b.date}</td>
+                    <td>${b.start_time}:00 - ${b.end_time}:00</td>
+                    <td>${b.purpose}</td>
+                    <td>
+                        <button onclick="approveBooking('${type}', ${b.id})">Approve</button>
+                        <button onclick="declineBooking('${type}', ${b.id})">Decline</button>
+                    </td>
+                </tr>`;
+            });
+            html += "</table>";
+            return html;
+        }
+
+        async function loadAllTables() {
+            const types = ['room', 'lab', 'equipment', 'sports_facilities', 'software_seat'];
+            let container = document.getElementById('booking-tables');
+            container.innerHTML = "";
+            for (const type of types) {
+                const bookings = await fetchBookings(type);
+                container.innerHTML += makeTable(type, bookings);
+            }
+        }
+
+        window.onload = loadAllTables;
     </script>
 </body>
 </html>
