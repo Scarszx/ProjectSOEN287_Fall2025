@@ -673,6 +673,93 @@ app.get('/api/resources', (req, res) => {
         }
     });
 });
+//personal bookings
+function checkStudentIdCookie(req, res, next) {
+  if (!req.cookies.studentId) {
+    return res.status(401).json({ error: 'No valid student ID cookie found' });
+  }
+  next();
+}
+
+// Helper to get bookings by table
+function getBookings(table, studentId, res) {
+  const sql = `SELECT * FROM ${table} WHERE student_id = ?`;
+  db.query(sql, [studentId], (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(results);
+  });
+}
+
+// Helper to delete booking by primary key fields and student_id
+function deleteBooking(table, data, studentId, res) {
+  let { resource_id, date, start_time } = data;
+  // Convert to YYYY-MM-DD string if ISO string is given
+  if (date) {
+    date = new Date(date).toISOString().split('T')[0];
+  }
+  console.log(`Deleting from ${table} where resource_id=${resource_id}, date=${date}, start_time=${start_time}, student_id=${studentId}`);
+  if (!resource_id || !date || !start_time) {
+    return res.status(400).json({ error: 'Missing booking identifiers.' });
+  }
+  const sql = `DELETE FROM ${table} WHERE resource_id = ? AND date = ? AND start_time = ? AND student_id = ?`;
+  db.query(sql, [resource_id, date, start_time, studentId], (err, result) => {
+    if (err) {
+      console.error('Error executing delete query:', err.message);
+      return res.status(500).json({ error: err.message });
+    }
+    if (result.affectedRows === 0) {
+      console.warn('No booking found to delete or unauthorized');
+      return res.status(404).json({ error: 'Booking not found or unauthorized' });
+    }
+    console.log('Booking deleted successfully');
+    res.json({ success: true });
+  });
+}
+
+
+
+// GET routes for each booking type
+app.get('/api/bookings/room', checkStudentIdCookie, (req, res) => {
+  getBookings('room_booking', req.cookies.studentId, res);
+});
+
+app.get('/api/bookings/lab', checkStudentIdCookie, (req, res) => {
+  getBookings('lab_booking', req.cookies.studentId, res);
+});
+
+app.get('/api/bookings/equipment', checkStudentIdCookie, (req, res) => {
+  getBookings('equipment_booking', req.cookies.studentId, res);
+});
+
+app.get('/api/bookings/sports_facilities', checkStudentIdCookie, (req, res) => {
+  getBookings('sports_facilities_booking', req.cookies.studentId, res);
+});
+
+app.get('/api/bookings/software_seat', checkStudentIdCookie, (req, res) => {
+  getBookings('software_seat_booking', req.cookies.studentId, res);
+});
+
+// DELETE routes to cancel a booking for each booking type
+app.delete('/api/bookings/room', checkStudentIdCookie, (req, res) => {
+  deleteBooking('room_booking', req.body, req.cookies.studentId, res);
+});
+
+app.delete('/api/bookings/lab', checkStudentIdCookie, (req, res) => {
+  deleteBooking('lab_booking', req.body, req.cookies.studentId, res);
+});
+
+app.delete('/api/bookings/equipment', checkStudentIdCookie, (req, res) => {
+  deleteBooking('equipment_booking', req.body, req.cookies.studentId, res);
+});
+
+app.delete('/api/bookings/sports_facilities', checkStudentIdCookie, (req, res) => {
+  deleteBooking('sports_facilities_booking', req.body, req.cookies.studentId, res);
+});
+
+app.delete('/api/bookings/software_seat', checkStudentIdCookie, (req, res) => {
+  deleteBooking('software_seat_booking', req.body, req.cookies.studentId, res);
+});
+
 
 //Statics files
 app.use('/', express.static(path.join(__dirname, 'index.html')));
