@@ -131,6 +131,31 @@ app.post('/submit/create_resource', (req, res) => {
   });
 });
 
+//delete resource
+app.post('/submit/delete_resource', (req, res) => {
+    const { resource_id } = req.body;
+    if (!resource_id) {
+        return res.status(400).send('Resource ID is required');
+    }
+
+    const sql = 'DELETE FROM resource WHERE resource_id = ?';
+    db.query(sql, [resource_id], (err, result) => {
+        if (err) {
+            return res.status(500).send('Error deleting resource: ' + err.message);
+        }
+        if (result.affectedRows === 0) {
+            return res.send(`<script>
+                alert('Resource ID not found.');
+                window.location.href = '/delete_resource.html';
+            </script>`);
+        }
+        res.send(`<script>
+            alert('Resource deleted successfully.');
+            window.location.href = '/page2.html';
+        </script>`);
+    });
+});
+
 //room booking
 app.post('/submit/room_booking', (req, res) => {
     const resource_id = req.body.resource_id;
