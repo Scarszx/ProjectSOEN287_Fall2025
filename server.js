@@ -67,7 +67,7 @@ app.post('/api/login', (req, res) => {
 
         let redirect = '/page1.html';
         if (user.status === 'faculty') redirect = '/page1.html';
-        if (user.status === 'resource_manager') redirect = '/page1.html';
+        if (user.status === 'resource_manager') redirect = '/page2.html';
 
         res.json({ success: true, redirect });
     });
@@ -775,6 +775,102 @@ app.delete('/api/bookings/sports_facilities', checkStudentIdCookie, (req, res) =
 app.delete('/api/bookings/software_seat', checkStudentIdCookie, (req, res) => {
   deleteBooking('software_seat_booking', req.body, req.cookies.studentId, res);
 });
+
+
+
+// Helper: Map booking type to table and resource join info
+const bookingConfig = {
+  room: { table: 'room_booking', resourceJoin: true },
+  lab: { table: 'lab_booking', resourceJoin: true },
+  equipment: { table: 'equipment_booking', resourceJoin: true },
+  sports_facilities: { table: 'sports_facilities_booking', resourceJoin: true },
+  software_seat: { table: 'software_seat_booking', resourceJoin: true }
+};
+
+// Helper to get pending bookings with student and resource join data
+app.get('/api/bookings/pending/:type', (req, res) => {
+  const type = req.params.type;
+  if (!bookingConfig[type]) return res.status(400).json({ error: "Invalid booking type" });
+
+  let sql = `
+    SELECT b.*, r.resource_name, u.first_name, u.last_name 
+    FROM ${bookingConfig[type].table} b
+    LEFT JOIN resource r ON b.resource_id = r.resource_id
+    LEFT JOIN users u ON b.student_id = u.id_number
+    WHERE b.status = 0
+  `;
+  db.query(sql, [], (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(results);
+  });
+});
+
+// Check resource availability helper
+function checkResourceAvailability(resource_id, date, start_time, end_time, callback) {
+  // Check if date is school closed
+  db.query('SELECT COUNT(*) as cnt FROM schoolclose WHERE date = ?', [date], (err, schoolCloseResults) => {
+    if (err) return callback(err);
+    if (schoolCloseResults[0].cnt > 0) return callback(null, false, 'Date is closed for school');
+
+    // Check conflicting resource_status where not free
+    const sqlStatus = `SELECT COUNT(*) AS cnt FROM resource_status 
+      WHERE resource_id = ? AND date = ? 
+      AND NOT (end_time <= ? OR start_time >= ?)
+      AND (status != 'free')`;
+    db.query(sqlStatus, [resource_id, date, start_time, end_time], (err, statusResults) => {
+      if (err) return callback(err);
+      if (statusResults[0].cnt > 0) return callback(null, false, 'Resource not free during requested time slot');
+      callback(null, true);
+    });
+  });
+}
+
+// Approve booking endpoint
+app.post('/api/bookings/approve', (req, res) => {
+  const { bookingType, bookingId } = req.body;
+  if (!bookingConfig[bookingType]) return res.status(400).json({ success: false, message: "Invalid booking type" });
+
+  // First get booking info
+  const sqlGet = `SELECT * FROM ${bookingConfig[bookingType].table} WHERE id = ? AND status = 0`;
+  db.query(sqlGet, [bookingId], (err, bookings) => {
+    if (err) return res.status(500).json({ success: false, message: err.message });
+    if (bookings.length === 0) return res.status(404).json({ success: false, message: "Booking not found or already approved" });
+
+    const b = bookings[0];
+    checkResourceAvailability(b.resource_id, b.date, b.start_time, b.end_time, (err, available, reason) => {
+      if (err) return res.status(500).json({ success: false, message: err.message });
+      if (!available) return res.status(400).json({ success: false, message: reason });
+
+      // Mark booking as approved (status=1)
+      const sqlUpdate = `UPDATE ${bookingConfig[bookingType].table} SET status = 1 WHERE id = ?`;
+      db.query(sqlUpdate, [bookingId], (err) => {
+        if (err) return res.status(500).json({ success: false, message: err.message });
+
+        // Insert into resource_status as booked
+        const sqlInsertStatus = `INSERT INTO resource_status (resource_id, date, start_time, end_time, status) VALUES (?, ?, ?, ?, ?)`;
+        db.query(sqlInsertStatus, [b.resource_id, b.date, b.start_time, b.end_time, 'booked'], (err) => {
+          if (err) return res.status(500).json({ success: false, message: "Booking approved but failed to update resource status: " + err.message });
+          res.json({ success: true });
+        });
+      });
+    });
+  });
+});
+
+// Decline booking endpoint - deletes booking, no resource_status change
+app.post('/api/bookings/decline', (req, res) => {
+  const { bookingType, bookingId } = req.body;
+  if (!bookingConfig[bookingType]) return res.status(400).json({ success: false, message: "Invalid booking type" });
+
+  const sqlDelete = `DELETE FROM ${bookingConfig[bookingType].table} WHERE id = ? AND status = 0`;
+  db.query(sqlDelete, [bookingId], (err, result) => {
+    if (err) return res.status(500).json({ success: false, message: err.message });
+    if (result.affectedRows === 0) return res.status(404).json({ success: false, message: "Booking not found or already handled" });
+    res.json({ success: true });
+  });
+});
+
+
 
 
 //Statics files
