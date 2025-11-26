@@ -57,17 +57,17 @@
           <td>${b.end_time}:00</td>
           <td>${b.purpose}</td>
           <td>${statusText}</td>
-          <td><button onclick="cancelBooking('${type}', ${b.resource_id}, '${b.date}', ${b.start_time})">Cancel</button></td>
+          <td><button onclick="cancelBooking('${type}', ${b.resource_id}, '${b.date}', ${b.start_time}, ${b.status})">Cancel</button></td>
         `;
         table.appendChild(row);
       });
     }
 
-    async function cancelBooking(type, resource_id, date, start_time) {
+    async function cancelBooking(type, resource_id, date, start_time, status) {
       const res = await fetch('/api/bookings/' + type, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ resource_id, date, start_time }),
+        body: JSON.stringify({ resource_id, date, start_time, status }),
       });
       if (res.ok) {
         alert('Booking cancelled');
