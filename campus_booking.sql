@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2025-11-26 04:09:39
+-- 產生時間： 2025-11-26 05:33:35
 -- 伺服器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.0.30
 
@@ -131,7 +131,8 @@ INSERT INTO `resource_status` (`id`, `resource_id`, `date`, `start_time`, `end_t
 (4, 1001, '2025-11-26', 10, 12, 'free'),
 (5, 1001, '2025-11-23', 10, 14, 'booked'),
 (6, 1001, '2025-11-26', 18, 19, 'maintenance'),
-(7, 2001, '2025-11-27', 12, 15, 'maintenance');
+(7, 2001, '2025-11-27', 12, 15, 'maintenance'),
+(10, 1001, '2025-11-20', 8, 19, 'booked');
 
 -- --------------------------------------------------------
 
@@ -155,11 +156,10 @@ CREATE TABLE `room_booking` (
 --
 
 INSERT INTO `room_booking` (`id`, `resource_id`, `date`, `start_time`, `end_time`, `purpose`, `student_id`, `status`) VALUES
-(1, 1001, '2025-11-25', 10, 17, 'i just want to', '', 0),
-(2, 1001, '2025-11-20', 8, 19, 'aa', '', 0),
+(2, 1001, '2025-11-20', 8, 19, 'aa', '', 1),
 (3, 1001, '2025-11-20', 8, 19, 'aa', '', 0),
 (4, 1001, '2025-11-20', 9, 18, 'aa', '', 0),
-(5, 1001, '2025-11-19', 9, 19, 's', '', 0),
+(5, 1001, '2025-11-19', 9, 19, 's', '', 1),
 (7, 1001, '2025-11-24', 11, 12, 'aaa', '12345678', 0);
 
 -- --------------------------------------------------------
@@ -342,7 +342,7 @@ ALTER TABLE `lab_booking`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `resource_status`
 --
 ALTER TABLE `resource_status`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `room_booking`
