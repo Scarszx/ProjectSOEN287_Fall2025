@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Booking Approval</title>
+    <link rel="stylesheet" href="../css/manage_booking.css">
+    <link rel="stylesheet" href="../css/stylesLOGIN.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="../css/icons/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../css/icons/favicon_io/favicon-16x16.png">
+</head>
+<body>
+    <h1>Booking Requests Management</h1>
+
+    <div id="booking-tables"></div>
+
+    <script>
+        async function fetchBookings(type) {
+            const resp = await fetch(`/api/bookings/pending/${type}`);
+            return resp.json();
+        }
+
+        async function approveBooking(type, id) {
+            const resp = await fetch(`/api/bookings/approve`, {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bookingType: type, bookingId: id })
+            });
+            const data = await resp.json();
+            if (data.success) {
+                alert("Booking approved!");
+                loadAllTables();
+            } else {
+                alert("Cannot approve: " + data.message);
+            }
+        }
+
+        async function declineBooking(type, id) {
+            const resp = await fetch(`/api/bookings/decline`, {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bookingType: type, bookingId: id })
+            });
+            const data = await resp.json();
+            if (data.success) {
+                alert("Booking declined and removed.");
+                loadAllTables();
+            } else {
+                alert("Error declining booking: " + data.message);
+            }
+        }
+
+        function makeTable(type, bookings) {
+            if (!bookings.length) return `<h3>${type} - No pending bookings</h3>`;
+            let html = `<h3>${type} Pending Bookings</h3><table>
+                        <tr>
+                            <th>ID</th><th>Student ID</th><th>Resource</th><th>Date</th>
+                            <th>Time</th><th>Purpose</th><th>Actions</th>
+                        </tr>`;
+            bookings.forEach(b => {
+                html += `<tr>
+                    <td>${b.id}</td>
+                    <td>${b.student_id}</td>
+                    <td>${b.resource_name || b.resource_id}</td>
+                    <td>${b.date}</td>
+                    <td>${b.start_time}:00 - ${b.end_time}:00</td>
+                    <td>${b.purpose}</td>
+                    <td>
+                        <button onclick="approveBooking('${type}', ${b.id})">Approve</button>
+                        <button onclick="declineBooking('${type}', ${b.id})">Decline</button>
+                    </td>
+                </tr>`;
+            });
+            html += "</table>";
+            return html;
+        }
+
+        async function loadAllTables() {
+            const types = ['room', 'lab', 'equipment', 'sports_facilities', 'software_seat'];
+            let container = document.getElementById('booking-tables');
+            container.innerHTML = "";
+            for (const type of types) {
+                const bookings = await fetchBookings(type);
+                container.innerHTML += makeTable(type, bookings);
+            }
+        }
+
+        window.onload = loadAllTables;
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Create Account - Campus Resource booking</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/stylesLOGIN.css">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="../css/icons/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../css/icons/favicon_io/favicon-16x16.png">
+
+    <script>
+        function showDialog() {
+            const dialog = document.getElementById("warningDialog");
+            if (dialog) dialog.showModal();
+        }
+
+        function closeDialog() {
+            const dialog = document.getElementById("warningDialog");
+            if (dialog) dialog.close();
+        }
+    </script>
+</head>
+<body class="register-page">
+    <div class="background-overlay"></div>
+    <div class="container">
+        <div class="card register-box">
+
+            <!--register form-->
+            <form id="registerForm" onsubmit="event.preventDefault();" method="post">
+                <h1>New Account Registration</h1>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">First Name:</label>
+                        <input type="text" id="first_name" name="first_name" placeholder="Enter first name (No nickname)">
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name:</label>
+                        <input type="text" id="last_name" name="last_name" placeholder="Enter last name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+
+                    <div class="form-group">
+                        <label for="status">You are a: </label>
+
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" id="student" name="status" value="student" required>
+                                Student
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" id="faculty" name="status" value="faculty">
+                                Faculty
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" id="resource_manager" name="status" value="resource_manager"
+                                    onclick="showDialog()">
+                                Resource Manager
+                            </label>
+                        </div>
+                    </div>
+                    <dialog id="warningDialog">
+                        <h3>⚠️ Important Notice</h3>
+                        <p>
+                            Students who create a Resource Manager account without permission will receive a heavy penalty.
+                        </p>
+                        <div style="text-align: right; margin-top: 15px;">
+                            <button onclick="closeDialog()" class="btn btn-primary">I understand</button>
+                        </div>
+                    </dialog>
+                </div>
+                <div class="form-group">
+                    <label for="id">ID Number:</label>
+                    <input type="text" id="id" name="id" placeholder="Enter your ID number"> </div>
+
+                <div class="form-group">
+                    <label for="new_username">Username:</label>
+                    <input type="text" id="new_username" name="new_username" placeholder="Enter username"></div>
+
+                <div class="form-group">
+                    <label for="new_password">Password:</label>
+                    <div class="input-box">
+                        <input type="password" class="password-field" id="new_password" name="new_password" placeholder="Enter password" required>
+                        <img src="../css/icons/eye-close.png" id="e2" class="eyeicon">
+                    </div>
+                </div>    
+                <div class="form-group">
+                    <label for="new_password">Confirm Password:</label>
+                    <div class="input-box">
+                        <input type="password" class="password-field" id="confirm_password" name="confirm_password" placeholder="Enter the password again" required>
+                        <img src="../css/icons/eye-close.png" id="e3" class="eyeicon">
+                    </div>
+                </div>    
+
+                <button type="submit" class="btn btn-primary">
+                    <span id="btnText">Create Account</span>
+                    <span id="loading" style="display:none">Creating...</span>
+                </button>
+
+            </form>
+
+            <div class="link-section">
+                <a href="login_page.html">Back to Login</a>
+            </div>
+        </div>
+    </div>   
+</body>
+<script src="../js/password-show-hide.js"></script>
+<script src="../js/create_account.js"></script>
+
+
+</html>

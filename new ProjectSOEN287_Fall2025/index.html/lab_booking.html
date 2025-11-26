@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAB BOOK</title>
+    <link rel="stylesheet" href="../css/lab_booking.css">
+    <link rel="stylesheet" href="../css/stylesLOGIN.css">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="../css/icons/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../css/icons/favicon_io/favicon-16x16.png">
+
+</head>
+<body>
+    <!-- header -->
+    <div id="header-container"></div>
+
+    <div class="booking-container">
+    <button><a href="page1.html">Back to Home</a></button>
+        <h1>Lab Booking</h1>
+        <form id="roomSelectionForm">
+            <input type="text" id="roomNumber" name="roomNumber" placeholder="Enter resource id for Current Schedule">
+            <button type="submit" class="btn btn-primary">Search Room</button>
+        </form>
+          <div id="calendar-controls">
+          <button id="prev-week">Previous Week</button>
+          <input type="date" id="week-picker" />
+          <button id="next-week">Next Week</button>
+        </div>
+
+        <table id="weekly-calendar" border="1">
+          <thead>
+            <tr id="week-days-header">
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody id="time-slots-body"></tbody>
+        </table>
+
+        <script>
+          // Get start date of the week for given date
+          function getStartOfWeek(date) {
+            const day = date.getDay();
+            const diff = date.getDate() - day;
+            return new Date(date.setDate(diff));
+          }
+
+          let currentWeekStart = getStartOfWeek(new Date());
+
+          function updateCalendar(weekStart) {
+            const headerRow = document.getElementById('week-days-header');
+            const tbody = document.getElementById('time-slots-body');
+
+            headerRow.innerHTML = '<th>Time</th>';
+            tbody.innerHTML = '';
+
+            // Create headers for days of week
+            for (let i = 0; i < 7; i++) {
+              let d = new Date(weekStart);
+              d.setDate(weekStart.getDate() + i);
+
+              let dayStr = d.toLocaleDateString(undefined, {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric'
+              });
+
+              let th = document.createElement('th');
+              th.textContent = dayStr;
+              headerRow.appendChild(th);
+            }
+
+            // Create rows for each hour 8 to 18 with time label column
+            for (let hour = 8; hour <= 18; hour++) {
+              let tr = document.createElement('tr');
+
+              let timeTd = document.createElement('td');
+              timeTd.textContent = `${hour}:00`;
+              tr.appendChild(timeTd);
+
+              for (let i = 0; i < 7; i++) {
+                let d = new Date(weekStart);
+                d.setDate(weekStart.getDate() + i);
+
+                let cell = document.createElement('td');
+                cell.id = `cell-${d.toISOString().split('T')[0]}-${hour}`;
+                cell.textContent = 'Loading...'; // Placeholder
+                tr.appendChild(cell);
+              }
+
+              tbody.appendChild(tr);
+            }
+          }
+
+          // Initialize calendar
+          updateCalendar(new Date(currentWeekStart));
+
+          document.getElementById('prev-week').addEventListener('click', () => {
+            currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+            updateCalendar(new Date(currentWeekStart));
+          });
+
+          document.getElementById('next-week').addEventListener('click', () => {
+            currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+            updateCalendar(new Date(currentWeekStart));
+          });
+
+          document.getElementById('week-picker').addEventListener('change', (e) => {
+            const selectedDate = new Date(e.target.value);
+            currentWeekStart = getStartOfWeek(selectedDate);
+            updateCalendar(new Date(currentWeekStart));
+          });
+        </script>
+        <script src="../js/room_calendar.js" defer></script>
+
+        <form id="bookingForm" method="post" action="/submit/lab_booking">
+            <div class="form-group">
+                <label for="resource_id">Resource id: </label>
+                <input type="text" id="resource_id" name="resource_id" required>
+                <label for="date">Select Date(Year, Month, Day):</label>
+                <input type="date" id="date" name="date" required>
+                <label for="time">Select Time:</label>
+                <label for="start_time">From:</label>
+                <select id="start_time" name="start_time" required>
+                    <option value="" disabled selected>Select a time</option>
+                    <option value=8>08:00</option>
+                    <option value=9>09:00</option>
+                    <option value=10>10:00</option>
+                    <option value=11>11:00</option>
+                    <option value=12>12:00</option>
+                    <option value=13>13:00</option>
+                    <option value=14>14:00</option>
+                    <option value=15>15:00</option>
+                    <option value=16>16:00</option>
+                    <option value=17>17:00</option>
+                    <option value=18>18:00</option>
+                </select>
+                <label for="end_time">To:</label>
+                <select id="end_time" name="end_time" required>
+                    <option value="" disabled selected>Select a time</option>
+                    <option value=9>09:00</option>
+                    <option value=10>10:00</option>
+                    <option value=11>11:00</option>
+                    <option value=12>12:00</option>
+                    <option value=13>13:00</option>
+                    <option value=14>14:00</option>
+                    <option value=15>15:00</option>
+                    <option value=16>16:00</option>
+                    <option value=17>17:00</option>
+                    <option value=18>18:00</option>
+                    <option value=19>19:00</option>
+                </select>
+                <label for="equipment">Equipment Needed:</label>
+                <div class="checkbox-row">
+                    <label class="inline-label"><input type="checkbox" id="Microscope" name="equipment" value="Microscope">Microscope</label>
+                    <label class="inline-label"><input type="checkbox" id="Centrifuge" name="equipment" value="Centrifuge">Centrifuge</label>
+                    <label class="inline-label"><input type="checkbox" id="Spectrophotometer" name="equipment" value="Spectrophotometer">Spectrophotometer</label>
+                    <label class="inline-label"><input type="checkbox" id="Analytical balance" name="equipment" value="Analytical balance">Analytical balance</label>
+                    <label class="inline-label"><input type="checkbox" id="magnetic stirrer" name="equipment" value="magnetic stirrer">magnetic stirrer</label>
+                    <label class="inline-label"><input type="checkbox" id="pH meter" name="equipment" value="pH meter">pH meter</label>
+                    <label class="inline-label"><input type="checkbox" id="Graduated cylinders" name="equipment" value="Graduated cylinders">Graduated cylinders</label>
+                    <label class="inline-label"><input type="checkbox" id="Beakers and flasks" name="equipment" value="Beakers and flasks">Beakers and flasks</label>
+                    <label class="inline-label"><input type="checkbox" id="Oscilloscope" name="equipment" value="Oscilloscope">Oscilloscope</label>
+                    <label class="inline-label"><input type="checkbox" id="Multimeter" name="equipment" value="Multimeter">Multimeter</label>
+                    <label class="inline-label"><input type="checkbox" id="electronics kit" name="equipment" value="electronics kit">electronics kit</label>
+                    <label class="inline-label"><input type="checkbox" id="3D printer" name="equipment" value="3D printer">3D printer</label>
+                    <label class="inline-label"><input type="checkbox" id="Raspberry Pi kit" name="equipment" value="Raspberry Pi kit">Raspberry Pi kit</label>
+                    <label class="inline-label"><input type="checkbox" id="Incubator" name="equipment" value="Incubator">Incubator</label>
+                </div>
+                <label for="quanity set up">*The equiemnt selected will only provide a set, please inform in 'Other Equipment' if you need more</label>
+                <label for="additional_equipment">Other Equipment (please specify):</label>
+                <textarea id="additional_equipment" name="additional_equipment"></textarea>
+                <label for="purpose">Purpose of Booking:</label>
+                <textarea id="purpose" name="purpose"></textarea>
+                <button type="submit" class="btn btn-primary">Book Lab</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Script to load header dynamically -->
+  <script>
+    fetch("header.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("header-container").innerHTML = html;
+      })
+      .then(() => {
+        // Optional: dynamically set user info (simulate logged-in user)
+        const user = { name: "John Doe", role: "Student" };
+        document.getElementById("username").textContent = user.name;
+        document.getElementById("userRole").textContent = user.role;
+      })
+      .catch(err => console.error("Error loading header:", err));
+  </script>
+</body>
+
+</html>
+
+
+
+
+

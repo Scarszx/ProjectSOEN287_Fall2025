@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Booking Approval</title>
+    <link rel="stylesheet" href="../css/booking_status.css">
+    <link rel="stylesheet" href="../css/stylesLOGIN.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="../css/icons/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../css/icons/favicon_io/favicon-16x16.png">
+</head>
+<body>
+    <div id="booking-Status">
+    <button><a href="page1.html">Back to Home</a></button>
+        <h1>Booking Requests Status</h1>
+        <div id="bookingsContainer">
+        <h2>Room Bookings</h2>
+        <table id="roomBookingsTable"></table>
+
+        <h2>Lab Bookings</h2>
+        <table id="labBookingsTable"></table>
+
+        <h2>Equipment Bookings</h2>
+        <table id="equipBookingsTable"></table>
+
+        <h2>Sports Facilities Bookings</h2>
+        <table id="sportsBookingsTable"></table>
+
+        <h2>Software Seat Bookings</h2>
+        <table id="softwareBookingsTable"></table>
+  </div>
+    <script>
+    async function fetchAndRenderBookings(type, tableId) {
+      const res = await fetch('/api/bookings/' + type);
+      if (!res.ok) {
+        document.getElementById(tableId).innerHTML = '<tr><td colspan="7">Error loading bookings</td></tr>';
+        return;
+      }
+      const bookings = await res.json();
+      const table = document.getElementById(tableId);
+      if (bookings.length === 0) {
+        table.innerHTML = '<tr><td colspan="7">No bookings found</td></tr>';
+        return;
+      }
+      table.innerHTML = `
+        <tr>
+          <th>Resource ID</th><th>Date</th><th>Start Time</th><th>End Time</th>
+          <th>Purpose</th><th>Status</th><th>Action</th>
+        </tr>`;
+      bookings.forEach(b => {
+        const statusText = b.status === 0 ? "pending" : "approved";
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${b.resource_id}</td>
+          <td>${b.date}</td>
+          <td>${b.start_time}:00</td>
+          <td>${b.end_time}:00</td>
+          <td>${b.purpose}</td>
+          <td>${statusText}</td>
+          <td><button onclick="cancelBooking('${type}', ${b.resource_id}, '${b.date}', ${b.start_time}, ${b.status})">Cancel</button></td>
+        `;
+        table.appendChild(row);
+      });
+    }
+
+    async function cancelBooking(type, resource_id, date, start_time, status) {
+      const res = await fetch('/api/bookings/' + type, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resource_id, date, start_time, status }),
+      });
+      if (res.ok) {
+        alert('Booking cancelled');
+        await loadAllBookings();
+      } else {
+        alert('Failed to cancel booking');
+      }
+    }
+
+    async function loadAllBookings() {
+      await fetchAndRenderBookings('room', 'roomBookingsTable');
+      await fetchAndRenderBookings('lab', 'labBookingsTable');
+      await fetchAndRenderBookings('equipment', 'equipBookingsTable');
+      await fetchAndRenderBookings('sports_facilities', 'sportsBookingsTable');
+      await fetchAndRenderBookings('software_seat', 'softwareBookingsTable');
+    }
+
+    window.onload = loadAllBookings;
+  </script>
+</body>
+
+</html>
+
