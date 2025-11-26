@@ -156,6 +156,7 @@ app.post('/submit/delete_resource', (req, res) => {
     });
 });
 
+
 //room booking
 app.post('/submit/room_booking', (req, res) => {
     const resource_id = req.body.resource_id;
@@ -894,6 +895,30 @@ app.post('/api/bookings/decline', (req, res) => {
     res.json({ success: true });
   });
 });
+
+// Get all current booked resource_status entries with status='booked'
+app.get('/api/booked_resources', (req, res) => {
+  const sql = "SELECT id, resource_id, date, start_time, end_time, status FROM resource_status WHERE status = 'booked'";
+  db.query(sql, (err, results) => {
+    if (err) return res.status(500).json({ message: err.message });
+    res.json(results);
+  });
+});
+
+// Cancel (delete) booked resource by resource_status id
+app.post('/api/booked_resources/cancel', (req, res) => {
+  const { id } = req.body;
+  if (!id) return res.status(400).json({ success: false, message: "ID required" });
+
+  const sql = "DELETE FROM resource_status WHERE id = ?";
+  db.query(sql, [id], (err, result) => {
+    if (err) return res.status(500).json({ success: false, message: err.message });
+    if (result.affectedRows === 0) 
+      return res.status(404).json({ success: false, message: "Booking not found" });
+    res.json({ success: true });
+  });
+});
+
 
 
 
