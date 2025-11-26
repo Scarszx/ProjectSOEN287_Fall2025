@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2025-11-26 02:39:50
+-- 產生時間： 2025-11-26 04:09:39
 -- 伺服器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.0.30
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `equipment_booking` (
+  `id` int(11) NOT NULL,
   `resource_id` int(11) NOT NULL,
   `date` date NOT NULL,
   `start_time` int(11) NOT NULL,
@@ -41,13 +42,13 @@ CREATE TABLE `equipment_booking` (
 -- 傾印資料表的資料 `equipment_booking`
 --
 
-INSERT INTO `equipment_booking` (`resource_id`, `date`, `start_time`, `end_time`, `purpose`, `student_id`, `status`) VALUES
-(3001, '2025-11-22', 8, 17, '', '', 0),
-(3001, '2025-11-22', 8, 17, '', '', 0),
-(3001, '2025-11-22', 8, 17, '', '', 0),
-(3001, '2025-11-22', 8, 17, '', '', 0),
-(3001, '2025-11-22', 8, 17, '', '', 0),
-(3001, '2025-11-13', 14, 17, 'x', '12345678', 0);
+INSERT INTO `equipment_booking` (`id`, `resource_id`, `date`, `start_time`, `end_time`, `purpose`, `student_id`, `status`) VALUES
+(1, 3001, '2025-11-22', 8, 17, '', '', 0),
+(2, 3001, '2025-11-22', 8, 17, '', '', 0),
+(3, 3001, '2025-11-22', 8, 17, '', '', 0),
+(4, 3001, '2025-11-22', 8, 17, '', '', 0),
+(5, 3001, '2025-11-22', 8, 17, '', '', 0),
+(6, 3001, '2025-11-13', 14, 17, 'x', '12345678', 0);
 
 -- --------------------------------------------------------
 
@@ -56,6 +57,7 @@ INSERT INTO `equipment_booking` (`resource_id`, `date`, `start_time`, `end_time`
 --
 
 CREATE TABLE `lab_booking` (
+  `id` int(11) NOT NULL,
   `resource_id` int(11) NOT NULL,
   `date` date NOT NULL,
   `start_time` int(11) NOT NULL,
@@ -71,13 +73,13 @@ CREATE TABLE `lab_booking` (
 -- 傾印資料表的資料 `lab_booking`
 --
 
-INSERT INTO `lab_booking` (`resource_id`, `date`, `start_time`, `end_time`, `equipment`, `additional_equipment`, `purpose`, `student_id`, `status`) VALUES
-(2001, '2025-11-19', 8, 19, '[\"no equipment\"]', '', 'a', '', 0),
-(2001, '2025-11-19', 8, 19, '[\"Microscope\"]', '', 'a', '', 0),
-(2001, '2025-11-19', 8, 19, '[\"Microscope\",\"Centrifuge\",\"Spectrophotometer\",\"Analytical balance\"]', 'hihihi', 'aa', '', 0),
-(2001, '2025-11-19', 8, 17, '[\"Microscope\",\"Centrifuge\",\"Spectrophotometer\",\"Analytical balance\",\"magnetic stirrer\",\"pH meter\",\"Graduated cylinders\"]', 'ddd', 'dd', '', 0),
-(2001, '2025-11-14', 13, 16, '[\"Microscope\"]', '', 'a', '', 0),
-(2001, '2025-11-07', 10, 13, '[\"Microscope\"]', 'a', 'a', '12345678', 0);
+INSERT INTO `lab_booking` (`id`, `resource_id`, `date`, `start_time`, `end_time`, `equipment`, `additional_equipment`, `purpose`, `student_id`, `status`) VALUES
+(1, 2001, '2025-11-19', 8, 19, '[\"no equipment\"]', '', 'a', '', 0),
+(2, 2001, '2025-11-19', 8, 19, '[\"Microscope\"]', '', 'a', '', 0),
+(3, 2001, '2025-11-19', 8, 19, '[\"Microscope\",\"Centrifuge\",\"Spectrophotometer\",\"Analytical balance\"]', 'hihihi', 'aa', '', 0),
+(4, 2001, '2025-11-19', 8, 17, '[\"Microscope\",\"Centrifuge\",\"Spectrophotometer\",\"Analytical balance\",\"magnetic stirrer\",\"pH meter\",\"Graduated cylinders\"]', 'ddd', 'dd', '', 0),
+(5, 2001, '2025-11-14', 13, 16, '[\"Microscope\"]', '', 'a', '', 0),
+(6, 2001, '2025-11-07', 10, 13, '[\"Microscope\"]', 'a', 'a', '12345678', 0);
 
 -- --------------------------------------------------------
 
@@ -138,6 +140,7 @@ INSERT INTO `resource_status` (`id`, `resource_id`, `date`, `start_time`, `end_t
 --
 
 CREATE TABLE `room_booking` (
+  `id` int(11) NOT NULL,
   `resource_id` int(11) NOT NULL,
   `date` date NOT NULL,
   `start_time` int(11) NOT NULL,
@@ -151,14 +154,13 @@ CREATE TABLE `room_booking` (
 -- 傾印資料表的資料 `room_booking`
 --
 
-INSERT INTO `room_booking` (`resource_id`, `date`, `start_time`, `end_time`, `purpose`, `student_id`, `status`) VALUES
-(1001, '2025-11-25', 10, 17, 'i just want to', '', 0),
-(1001, '2025-11-20', 8, 19, 'aa', '', 0),
-(1001, '2025-11-20', 8, 19, 'aa', '', 0),
-(1001, '2025-11-20', 9, 18, 'aa', '', 0),
-(1001, '2025-11-19', 9, 19, 's', '', 0),
-(1001, '2025-11-05', 9, 13, 'qq', '12345678', 0),
-(1001, '2025-11-24', 11, 12, 'aaa', '12345678', 0);
+INSERT INTO `room_booking` (`id`, `resource_id`, `date`, `start_time`, `end_time`, `purpose`, `student_id`, `status`) VALUES
+(1, 1001, '2025-11-25', 10, 17, 'i just want to', '', 0),
+(2, 1001, '2025-11-20', 8, 19, 'aa', '', 0),
+(3, 1001, '2025-11-20', 8, 19, 'aa', '', 0),
+(4, 1001, '2025-11-20', 9, 18, 'aa', '', 0),
+(5, 1001, '2025-11-19', 9, 19, 's', '', 0),
+(7, 1001, '2025-11-24', 11, 12, 'aaa', '12345678', 0);
 
 -- --------------------------------------------------------
 
@@ -167,6 +169,7 @@ INSERT INTO `room_booking` (`resource_id`, `date`, `start_time`, `end_time`, `pu
 --
 
 CREATE TABLE `schoolclose` (
+  `id` int(11) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -174,8 +177,8 @@ CREATE TABLE `schoolclose` (
 -- 傾印資料表的資料 `schoolclose`
 --
 
-INSERT INTO `schoolclose` (`date`) VALUES
-('2025-11-29');
+INSERT INTO `schoolclose` (`id`, `date`) VALUES
+(1, '2025-11-29');
 
 -- --------------------------------------------------------
 
@@ -184,6 +187,7 @@ INSERT INTO `schoolclose` (`date`) VALUES
 --
 
 CREATE TABLE `software_seat_booking` (
+  `id` int(11) NOT NULL,
   `resource_id` int(11) NOT NULL,
   `date` date NOT NULL,
   `start_time` int(11) NOT NULL,
@@ -198,11 +202,11 @@ CREATE TABLE `software_seat_booking` (
 -- 傾印資料表的資料 `software_seat_booking`
 --
 
-INSERT INTO `software_seat_booking` (`resource_id`, `date`, `start_time`, `end_time`, `purpose`, `software_access_method`, `student_id`, `status`) VALUES
-(5001, '0000-00-00', 9, 19, '0', '0', '', 0),
-(5001, '2025-11-19', 8, 11, 'ss', 'Licenses', '', 0),
-(5001, '2025-11-19', 8, 11, 'cc', 'Local', '', 0),
-(5001, '2025-11-21', 13, 14, 'x', 'Licenses', '12345678', 0);
+INSERT INTO `software_seat_booking` (`id`, `resource_id`, `date`, `start_time`, `end_time`, `purpose`, `software_access_method`, `student_id`, `status`) VALUES
+(1, 5001, '0000-00-00', 9, 19, '0', '0', '', 0),
+(2, 5001, '2025-11-19', 8, 11, 'ss', 'Licenses', '', 0),
+(3, 5001, '2025-11-19', 8, 11, 'cc', 'Local', '', 0),
+(4, 5001, '2025-11-21', 13, 14, 'x', 'Licenses', '12345678', 0);
 
 -- --------------------------------------------------------
 
@@ -211,6 +215,7 @@ INSERT INTO `software_seat_booking` (`resource_id`, `date`, `start_time`, `end_t
 --
 
 CREATE TABLE `sports_facilities_booking` (
+  `id` int(11) NOT NULL,
   `resource_id` int(11) NOT NULL,
   `date` date NOT NULL,
   `start_time` int(11) NOT NULL,
@@ -226,9 +231,9 @@ CREATE TABLE `sports_facilities_booking` (
 -- 傾印資料表的資料 `sports_facilities_booking`
 --
 
-INSERT INTO `sports_facilities_booking` (`resource_id`, `date`, `start_time`, `end_time`, `equipment`, `additional_equipment`, `purpose`, `student_id`, `status`) VALUES
-(4001, '2025-11-27', 8, 18, '[\"Basketballs\",\"Volleyballs\",\"Badminton rackets\"]', 'none', 'aaa', '', 0),
-(4001, '2025-11-12', 9, 11, '[\"Basketballs\"]', 'f', 'f', '12345678', 0);
+INSERT INTO `sports_facilities_booking` (`id`, `resource_id`, `date`, `start_time`, `end_time`, `equipment`, `additional_equipment`, `purpose`, `student_id`, `status`) VALUES
+(1, 4001, '2025-11-27', 8, 18, '[\"Basketballs\",\"Volleyballs\",\"Badminton rackets\"]', 'none', 'aaa', '', 0),
+(2, 4001, '2025-11-12', 9, 11, '[\"Basketballs\"]', 'f', 'f', '12345678', 0);
 
 -- --------------------------------------------------------
 
@@ -262,6 +267,18 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `status`, `id_num
 --
 
 --
+-- 資料表索引 `equipment_booking`
+--
+ALTER TABLE `equipment_booking`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- 資料表索引 `lab_booking`
+--
+ALTER TABLE `lab_booking`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 資料表索引 `resource`
 --
 ALTER TABLE `resource`
@@ -271,6 +288,30 @@ ALTER TABLE `resource`
 -- 資料表索引 `resource_status`
 --
 ALTER TABLE `resource_status`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- 資料表索引 `room_booking`
+--
+ALTER TABLE `room_booking`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- 資料表索引 `schoolclose`
+--
+ALTER TABLE `schoolclose`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- 資料表索引 `software_seat_booking`
+--
+ALTER TABLE `software_seat_booking`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- 資料表索引 `sports_facilities_booking`
+--
+ALTER TABLE `sports_facilities_booking`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -286,10 +327,46 @@ ALTER TABLE `users`
 --
 
 --
+-- 使用資料表自動遞增(AUTO_INCREMENT) `equipment_booking`
+--
+ALTER TABLE `equipment_booking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `lab_booking`
+--
+ALTER TABLE `lab_booking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- 使用資料表自動遞增(AUTO_INCREMENT) `resource_status`
 --
 ALTER TABLE `resource_status`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `room_booking`
+--
+ALTER TABLE `room_booking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `schoolclose`
+--
+ALTER TABLE `schoolclose`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `software_seat_booking`
+--
+ALTER TABLE `software_seat_booking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `sports_facilities_booking`
+--
+ALTER TABLE `sports_facilities_booking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `users`
