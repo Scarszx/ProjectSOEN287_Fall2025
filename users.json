@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "Alex Johnson",
+    "email": "alex.johnson@concordia.ca",
+    "password": "$2b$10$Ju1/1XnAU7NzdGM5RfcSTO8r4rDU3xAAUL7B.Evj.nHUVQjErhMla",
+    "studentId": "40245891",
+    "phone": "+1 (514) 555-0123",
+    "program": "Bachelor of Computer Science",
+    "year": "3rd Year"
+  }
+]

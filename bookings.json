@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "resource": "Study Room A",
+    "date": "2025-11-05",
+    "time": "10:00 - 12:00",
+    "purpose": "Group Project",
+    "people": 3,
+    "notes": "Working on database project"
+  },
+  {
+    "id": 2,
+    "userId": 1,
+    "resource": "Computer Lab 1",
+    "date": "2025-11-07",
+    "time": "14:00 - 16:00",
+    "purpose": "Study",
+    "people": 1,
+    "notes": "Programming assignment"
+  }
+]
