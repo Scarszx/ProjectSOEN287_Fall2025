@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 25, 2025 at 11:03 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- 主機： 127.0.0.1
+-- 產生時間： 2025-11-26 02:39:50
+-- 伺服器版本： 10.4.32-MariaDB
+-- PHP 版本： 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `campus_booking`
+-- 資料庫： `campus_booking`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `equipment_booking`
+-- 資料表結構 `equipment_booking`
 --
 
 CREATE TABLE `equipment_booking` (
@@ -32,24 +32,27 @@ CREATE TABLE `equipment_booking` (
   `date` date NOT NULL,
   `start_time` int(11) NOT NULL,
   `end_time` int(11) NOT NULL,
-  `purpose` text NOT NULL
+  `purpose` text NOT NULL,
+  `student_id` varchar(20) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `equipment_booking`
+-- 傾印資料表的資料 `equipment_booking`
 --
 
-INSERT INTO `equipment_booking` (`resource_id`, `date`, `start_time`, `end_time`, `purpose`) VALUES
-(3001, '2025-11-22', 8, 17, ''),
-(3001, '2025-11-22', 8, 17, ''),
-(3001, '2025-11-22', 8, 17, ''),
-(3001, '2025-11-22', 8, 17, ''),
-(3001, '2025-11-22', 8, 17, '');
+INSERT INTO `equipment_booking` (`resource_id`, `date`, `start_time`, `end_time`, `purpose`, `student_id`, `status`) VALUES
+(3001, '2025-11-22', 8, 17, '', '', 0),
+(3001, '2025-11-22', 8, 17, '', '', 0),
+(3001, '2025-11-22', 8, 17, '', '', 0),
+(3001, '2025-11-22', 8, 17, '', '', 0),
+(3001, '2025-11-22', 8, 17, '', '', 0),
+(3001, '2025-11-13', 14, 17, 'x', '12345678', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lab_booking`
+-- 資料表結構 `lab_booking`
 --
 
 CREATE TABLE `lab_booking` (
@@ -59,23 +62,27 @@ CREATE TABLE `lab_booking` (
   `end_time` int(11) NOT NULL,
   `equipment` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`equipment`)),
   `additional_equipment` text NOT NULL,
-  `purpose` text NOT NULL
+  `purpose` text NOT NULL,
+  `student_id` varchar(20) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `lab_booking`
+-- 傾印資料表的資料 `lab_booking`
 --
 
-INSERT INTO `lab_booking` (`resource_id`, `date`, `start_time`, `end_time`, `equipment`, `additional_equipment`, `purpose`) VALUES
-(2001, '2025-11-19', 8, 19, '[\"no equipment\"]', '', 'a'),
-(2001, '2025-11-19', 8, 19, '[\"Microscope\"]', '', 'a'),
-(2001, '2025-11-19', 8, 19, '[\"Microscope\",\"Centrifuge\",\"Spectrophotometer\",\"Analytical balance\"]', 'hihihi', 'aa'),
-(2001, '2025-11-19', 8, 17, '[\"Microscope\",\"Centrifuge\",\"Spectrophotometer\",\"Analytical balance\",\"magnetic stirrer\",\"pH meter\",\"Graduated cylinders\"]', 'ddd', 'dd');
+INSERT INTO `lab_booking` (`resource_id`, `date`, `start_time`, `end_time`, `equipment`, `additional_equipment`, `purpose`, `student_id`, `status`) VALUES
+(2001, '2025-11-19', 8, 19, '[\"no equipment\"]', '', 'a', '', 0),
+(2001, '2025-11-19', 8, 19, '[\"Microscope\"]', '', 'a', '', 0),
+(2001, '2025-11-19', 8, 19, '[\"Microscope\",\"Centrifuge\",\"Spectrophotometer\",\"Analytical balance\"]', 'hihihi', 'aa', '', 0),
+(2001, '2025-11-19', 8, 17, '[\"Microscope\",\"Centrifuge\",\"Spectrophotometer\",\"Analytical balance\",\"magnetic stirrer\",\"pH meter\",\"Graduated cylinders\"]', 'ddd', 'dd', '', 0),
+(2001, '2025-11-14', 13, 16, '[\"Microscope\"]', '', 'a', '', 0),
+(2001, '2025-11-07', 10, 13, '[\"Microscope\"]', 'a', 'a', '12345678', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `resource`
+-- 資料表結構 `resource`
 --
 
 CREATE TABLE `resource` (
@@ -86,7 +93,7 @@ CREATE TABLE `resource` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `resource`
+-- 傾印資料表的資料 `resource`
 --
 
 INSERT INTO `resource` (`resource_name`, `resource_type`, `resource_id`, `resource_description`) VALUES
@@ -99,7 +106,7 @@ INSERT INTO `resource` (`resource_name`, `resource_type`, `resource_id`, `resour
 -- --------------------------------------------------------
 
 --
--- Table structure for table `resource_status`
+-- 資料表結構 `resource_status`
 --
 
 CREATE TABLE `resource_status` (
@@ -112,7 +119,7 @@ CREATE TABLE `resource_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `resource_status`
+-- 傾印資料表的資料 `resource_status`
 --
 
 INSERT INTO `resource_status` (`id`, `resource_id`, `date`, `start_time`, `end_time`, `status`) VALUES
@@ -120,12 +127,14 @@ INSERT INTO `resource_status` (`id`, `resource_id`, `date`, `start_time`, `end_t
 (2, 1001, '2025-11-27', 9, 12, 'not_avaliable_for_other_reasons'),
 (3, 1001, '2025-11-27', 13, 17, 'free'),
 (4, 1001, '2025-11-26', 10, 12, 'free'),
-(5, 1001, '2025-11-23', 10, 14, 'booked');
+(5, 1001, '2025-11-23', 10, 14, 'booked'),
+(6, 1001, '2025-11-26', 18, 19, 'maintenance'),
+(7, 2001, '2025-11-27', 12, 15, 'maintenance');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `room_booking`
+-- 資料表結構 `room_booking`
 --
 
 CREATE TABLE `room_booking` (
@@ -133,24 +142,28 @@ CREATE TABLE `room_booking` (
   `date` date NOT NULL,
   `start_time` int(11) NOT NULL,
   `end_time` int(11) NOT NULL,
-  `purpose` text NOT NULL
+  `purpose` text NOT NULL,
+  `student_id` varchar(20) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `room_booking`
+-- 傾印資料表的資料 `room_booking`
 --
 
-INSERT INTO `room_booking` (`resource_id`, `date`, `start_time`, `end_time`, `purpose`) VALUES
-(1001, '2025-11-25', 10, 17, 'i just want to'),
-(1001, '2025-11-20', 8, 19, 'aa'),
-(1001, '2025-11-20', 8, 19, 'aa'),
-(1001, '2025-11-20', 9, 18, 'aa'),
-(1001, '2025-11-19', 9, 19, 's');
+INSERT INTO `room_booking` (`resource_id`, `date`, `start_time`, `end_time`, `purpose`, `student_id`, `status`) VALUES
+(1001, '2025-11-25', 10, 17, 'i just want to', '', 0),
+(1001, '2025-11-20', 8, 19, 'aa', '', 0),
+(1001, '2025-11-20', 8, 19, 'aa', '', 0),
+(1001, '2025-11-20', 9, 18, 'aa', '', 0),
+(1001, '2025-11-19', 9, 19, 's', '', 0),
+(1001, '2025-11-05', 9, 13, 'qq', '12345678', 0),
+(1001, '2025-11-24', 11, 12, 'aaa', '12345678', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `schoolclose`
+-- 資料表結構 `schoolclose`
 --
 
 CREATE TABLE `schoolclose` (
@@ -158,7 +171,7 @@ CREATE TABLE `schoolclose` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `schoolclose`
+-- 傾印資料表的資料 `schoolclose`
 --
 
 INSERT INTO `schoolclose` (`date`) VALUES
@@ -167,7 +180,7 @@ INSERT INTO `schoolclose` (`date`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `software_seat_booking`
+-- 資料表結構 `software_seat_booking`
 --
 
 CREATE TABLE `software_seat_booking` (
@@ -176,22 +189,25 @@ CREATE TABLE `software_seat_booking` (
   `start_time` int(11) NOT NULL,
   `end_time` int(11) NOT NULL,
   `purpose` text NOT NULL,
-  `software_access_method` text NOT NULL
+  `software_access_method` text NOT NULL,
+  `student_id` varchar(20) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `software_seat_booking`
+-- 傾印資料表的資料 `software_seat_booking`
 --
 
-INSERT INTO `software_seat_booking` (`resource_id`, `date`, `start_time`, `end_time`, `purpose`, `software_access_method`) VALUES
-(5001, '0000-00-00', 9, 19, '0', '0'),
-(5001, '2025-11-19', 8, 11, 'ss', 'Licenses'),
-(5001, '2025-11-19', 8, 11, 'cc', 'Local');
+INSERT INTO `software_seat_booking` (`resource_id`, `date`, `start_time`, `end_time`, `purpose`, `software_access_method`, `student_id`, `status`) VALUES
+(5001, '0000-00-00', 9, 19, '0', '0', '', 0),
+(5001, '2025-11-19', 8, 11, 'ss', 'Licenses', '', 0),
+(5001, '2025-11-19', 8, 11, 'cc', 'Local', '', 0),
+(5001, '2025-11-21', 13, 14, 'x', 'Licenses', '12345678', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sports_facilities_booking`
+-- 資料表結構 `sports_facilities_booking`
 --
 
 CREATE TABLE `sports_facilities_booking` (
@@ -201,20 +217,23 @@ CREATE TABLE `sports_facilities_booking` (
   `end_time` int(11) NOT NULL,
   `equipment` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`equipment`)),
   `additional_equipment` text NOT NULL,
-  `purpose` text NOT NULL
+  `purpose` text NOT NULL,
+  `student_id` varchar(20) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `sports_facilities_booking`
+-- 傾印資料表的資料 `sports_facilities_booking`
 --
 
-INSERT INTO `sports_facilities_booking` (`resource_id`, `date`, `start_time`, `end_time`, `equipment`, `additional_equipment`, `purpose`) VALUES
-(4001, '2025-11-27', 8, 18, '[\"Basketballs\",\"Volleyballs\",\"Badminton rackets\"]', 'none', 'aaa');
+INSERT INTO `sports_facilities_booking` (`resource_id`, `date`, `start_time`, `end_time`, `equipment`, `additional_equipment`, `purpose`, `student_id`, `status`) VALUES
+(4001, '2025-11-27', 8, 18, '[\"Basketballs\",\"Volleyballs\",\"Badminton rackets\"]', 'none', 'aaa', '', 0),
+(4001, '2025-11-12', 9, 11, '[\"Basketballs\"]', 'f', 'f', '12345678', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- 資料表結構 `users`
 --
 
 CREATE TABLE `users` (
@@ -230,7 +249,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- 傾印資料表的資料 `users`
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `status`, `id_number`, `username`, `password`, `created_at`) VALUES
@@ -239,23 +258,23 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `status`, `id_num
 (4, 'James', 'What', 'JW@gmail.com', 'resource_manager', '87654321', 'JamesWat', 'e24df920078c3dd4e7e8d2442f00e5c9ab2a231bb3918d65cc50906e49ecaef4', '2025-11-25 21:52:24');
 
 --
--- Indexes for dumped tables
+-- 已傾印資料表的索引
 --
 
 --
--- Indexes for table `resource`
+-- 資料表索引 `resource`
 --
 ALTER TABLE `resource`
   ADD PRIMARY KEY (`resource_id`);
 
 --
--- Indexes for table `resource_status`
+-- 資料表索引 `resource_status`
 --
 ALTER TABLE `resource_status`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- 資料表索引 `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -263,17 +282,17 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `id_number` (`id_number`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
 --
 
 --
--- AUTO_INCREMENT for table `resource_status`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `resource_status`
 --
 ALTER TABLE `resource_status`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `users`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
