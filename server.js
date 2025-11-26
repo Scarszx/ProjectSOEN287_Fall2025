@@ -692,31 +692,47 @@ function getBookings(table, studentId, res) {
 
 // Helper to delete booking by primary key fields and student_id
 function deleteBooking(table, data, studentId, res) {
-  let { resource_id, date, start_time } = data;
-  // Convert to YYYY-MM-DD string if ISO string is given
-  if (date) {
+  let { resource_id, date, start_time, status } = data;
+  // Convert date if needed
+  if (typeof date === 'string' && date.includes('T')) {
     date = new Date(date).toISOString().split('T')[0];
   }
+
   console.log(`Deleting from ${table} where resource_id=${resource_id}, date=${date}, start_time=${start_time}, student_id=${studentId}`);
-  if (!resource_id || !date || !start_time) {
-    return res.status(400).json({ error: 'Missing booking identifiers.' });
-  }
+
+  // Perform delete
   const sql = `DELETE FROM ${table} WHERE resource_id = ? AND date = ? AND start_time = ? AND student_id = ?`;
   db.query(sql, [resource_id, date, start_time, studentId], (err, result) => {
     if (err) {
-      console.error('Error executing delete query:', err.message);
+      console.error('Error executing delete:', err);
       return res.status(500).json({ error: err.message });
     }
     if (result.affectedRows === 0) {
       console.warn('No booking found to delete or unauthorized');
       return res.status(404).json({ error: 'Booking not found or unauthorized' });
     }
-    console.log('Booking deleted successfully');
-    res.json({ success: true });
+
+    // If status is 1 (approved), delete related resource_status record
+    console.log("status is", status);
+if (status === 1) {
+  const resourceSql = `DELETE FROM resource_status WHERE resource_id = ? AND date = ? AND start_time = ?`;
+  console.log('Attempting to delete related resource_status with', { resource_id, date, start_time });
+  db.query(resourceSql, [resource_id, date, start_time], (err, resDel) => {
+    if (err) {
+      console.error('Error deleting resource status:', err);
+      return res.status(500).json({ error: err.message });
+    }
+    console.log('Related resource status deletion result:', resDel);
+    console.log('Related resource status deleted successfully.');
+    return res.json({ success: true });
   });
+} else {
+  return res.json({ success: true });
 }
 
 
+  });
+}
 
 // GET routes for each booking type
 app.get('/api/bookings/room', checkStudentIdCookie, (req, res) => {
