@@ -1,0 +1,13 @@
+List of features:
+login and register
+main page for user and resource manager, have link to different pages
+5 different booking pages of user, current calender and search resource is include
+booking status for user
+managing resource status, create resoucre, and accpet booking request for manager
+a profile page for user information, edit user information, and changing password. Also can modify booking status
+
+List of features in next deliverable:
+complete the js code for input and output data
+complete all the function in the website
+update some format or style
+insert header

@@ -1,0 +1,21 @@
+List of features:
+login and register
+main page for user and resource manager, have link to different pages
+5 different booking pages of user, current calender and search resource is include
+booking status for user
+managing resource status, create resoucre, and accpet booking request for manager
+a profile page for user information, edit user information, and changing password. Also can modify booking status
+
+List of features in second deliverable:
+node.js server code for 
+create resource, 
+delete resource, 
+all room booking and checking method, 
+all resource management method, 
+calendar real time status with switching week, 
+personal booking status(can cancel booking), 
+booking approve method with time conflict checking, 
+view all approved booking and can cancel, 
+and multiple new html page which is related to above
+login and register method
+profile page
